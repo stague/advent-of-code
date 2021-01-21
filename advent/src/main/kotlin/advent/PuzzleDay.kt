@@ -23,9 +23,9 @@ open class PuzzleDay(val day: Int, val year: Int) {
         // TODO resources folder acting up. this was working now does not. forcing absolute path instead since this will never be a jar anyway :shrug:
         // javaClass.getResource(filename).readText().split(delimiter)
 
-        val fullFile = "advent/src/main/resources/${filename}"
+        val fullFile = Paths.get("advent/src/main/resources/${filename}").toAbsolutePath()
         println("loading resource: $fullFile")
-        return Paths.get(fullFile).toUri().toURL().readText().split(delimiter)
+        return fullFile.toUri().toURL().readText().split(delimiter)
     }
 
     open fun load(testNum: Int? = null, delimiter: String = "\n") = loadDay(day, year, testNum, delimiter)
