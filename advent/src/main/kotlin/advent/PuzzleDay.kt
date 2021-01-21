@@ -1,5 +1,7 @@
 package advent
 
+import java.nio.file.Paths
+
 open class PuzzleDay(val day: Int, val year: Int) {
 
     private fun <R> measureTime(item: String, fn: () -> R): R =
@@ -12,13 +14,19 @@ open class PuzzleDay(val day: Int, val year: Int) {
         }
 
     private fun getDayFilename(day: Int, year: Int, testNum: Int? = null): String =
-        "$year/Dec${day}${if(testNum != null) "-test-$testNum" else ""}.txt"
+        "$year/Dec${day}${if (testNum != null) "-test-$testNum" else ""}.txt"
 
     private fun loadDay(day: Int, year: Int, testNum: Int? = null, delimiter: String = "\n"): List<String> =
         loadResource(getDayFilename(day, year, testNum), delimiter)
 
-    private fun loadResource(filename: String, delimiter: String = "\n"): List<String> =
-        javaClass.getResource(filename).readText().split(delimiter)
+    private fun loadResource(filename: String, delimiter: String = "\n"): List<String> {
+        // TODO resources folder acting up. this was working now does not. forcing absolute path instead since this will never be a jar anyway :shrug:
+        // javaClass.getResource(filename).readText().split(delimiter)
+
+        val fullFile = "advent/src/main/resources/${filename}"
+        println("loading resource: $fullFile")
+        return Paths.get(fullFile).toUri().toURL().readText().split(delimiter)
+    }
 
     open fun load(testNum: Int? = null, delimiter: String = "\n") = loadDay(day, year, testNum, delimiter)
 
@@ -27,7 +35,7 @@ open class PuzzleDay(val day: Int, val year: Int) {
     open fun puzzle2(): Any = "TODO"
 
     open fun runSingle(isOne: Boolean): Any = measureTime("Puzzle ${if (isOne) "1" else "2"}") {
-        if(isOne) {
+        if (isOne) {
             puzzle1()
         } else {
             puzzle2()
