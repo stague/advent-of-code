@@ -4,3 +4,4 @@ build
 gradle/wrapper
 gradlew
 gradlew.bat
+out/
