@@ -7,7 +7,6 @@ class Dec7: PuzzleDay(7, 2020) {
         val tree = Node("shiny gold")
         val bags = parse()
         var oldTreeSize: Int
-        // ARRRRGH WHY IS IT SO DUMB WHY AM I SO DUMB
         // TODO filter the bags or something shit man have some pride
         do {
             oldTreeSize = tree.puzzle1().size

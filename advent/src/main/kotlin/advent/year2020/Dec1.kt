@@ -17,7 +17,7 @@ class Dec1: PuzzleDay(1, 2020) {
                 }
             }
         }
-        return "fart"
+        throw IllegalStateException("well that didn't work ya dummy")
     }
 
     override fun puzzle2(): Any {
@@ -27,7 +27,7 @@ class Dec1: PuzzleDay(1, 2020) {
                 return "$first, $second, ${first * second}"
             }
         }
-        return "fart"
+        throw IllegalStateException("well that didn't work ya dummy")
     }
 
     private fun findSum3(): String {
@@ -41,6 +41,6 @@ class Dec1: PuzzleDay(1, 2020) {
                 }
             }
         }
-        return "fart"
+        throw IllegalStateException("well that didn't work ya dummy")
     }
 }

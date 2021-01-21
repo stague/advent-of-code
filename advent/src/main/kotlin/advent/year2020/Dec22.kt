@@ -3,7 +3,7 @@ package advent.year2020
 import advent.PuzzleDay
 
 class Dec22: PuzzleDay(22, 2020) {
-    // TODO this one got away from me on the refactor after submitting a solution. just give up now and ignore this file :badpokerface:
+    // TODO this one got away from me on the refactor after submitting a solution. just give up now and ignore this file
     override fun puzzle1(): Any = "disabled"
 //    parse().let { startingDecks ->
 //        println("Total Size: ${startingDecks.sumBy { it.size } }}")
