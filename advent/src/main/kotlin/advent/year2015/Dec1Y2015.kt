@@ -2,45 +2,29 @@ package advent.year2015
 
 import advent.PuzzleDay
 
-class Dec1: PuzzleDay(1, 2015) {
+/**
+ * https://adventofcode.com/2015/day/1
+ * part 1: 280
+ * part 2: 1797
+ */
+class Dec1Y2015 : PuzzleDay(1, 2015) {
 
-    override fun puzzle1(): Any {
-        val array = load().map { it.toInt() }.sorted()
-        (1..2020).forEach { first ->
-            if (array.contains(first)) {
-                // yay found one that might work for this problem
-                (first + 1..2020).forEach { second ->
-                    if (array.contains(second) && first + second == 2020) {
-                        // yay! we're done!
-                        return "$first, $second, ${first * second}"
-                    }
-                }
-            }
-        }
-        throw IllegalStateException("well that didn't work ya dummy")
-    }
+    override fun puzzle1(): Any = parseInput().sum()
 
-    override fun puzzle2(): Any {
-        val array = load().map { it.toInt() }.sorted()
-        array.forEachIndexed { idx1, first ->
-            array.drop(idx1 + 1).find { it + first == 2020 }?.let { second ->
-                return "$first, $second, ${first * second}"
-            }
+    // accumulator is a pair: first is running sum, second is basement idx (-1 until found)
+    override fun puzzle2(): Any = parseInput().foldIndexed(0 to -1) { idx, acc, item ->
+        if (acc.first + item == -1 && acc.second == -1) {
+            acc.first + item to idx + 1 // puzzle idx starts at 1 not zero
+        } else {
+            acc.first + item to acc.second
         }
-        throw IllegalStateException("well that didn't work ya dummy")
-    }
+    }.second
 
-    private fun findSum3(): String {
-        val list = load().map { it.toInt() }.sorted()
-        list.forEachIndexed { idx1, first ->
-            // if first + second + min already too big even for 2020, just filter
-            val sublist = list.drop(idx1 + 1).filter { first + it + list[0] <= 2020 }
-            sublist.forEachIndexed { idx2, second ->
-                sublist.drop(idx2 + 1).firstOrNull { first + second + it == 2020 }?.let { third ->
-                    return "$first, $second, $third, ${first * second * third}"
-                }
-            }
+    private fun parseInput(): List<Int> = load(delimiter = "").map {
+        when (it) {
+            "(" -> 1
+            ")" -> -1
+            else -> 0
         }
-        throw IllegalStateException("well that didn't work ya dummy")
-    }
+    }.filterNot { it == 0 } // lazy delimiter "" means first and last char both show up as empty strings
 }
