@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec2: PuzzleDay(2, 2020) {
+class Dec2 : PuzzleDay(2, 2020) {
 
     override fun puzzle1(): Any = parseInput().count { it.isValid() }
     override fun puzzle2(): Any = parseInput().count { it.isValid2() }
@@ -18,13 +18,13 @@ class Dec2: PuzzleDay(2, 2020) {
     }
 
     private fun parseInput() = load().map {
-            val split = it.replace(":", "").split(" ")
-            val range = split[0].split("-")
-            Password(
-                min = range[0].toInt(),
-                max = range[1].toInt(),
-                char = split[1].first(),
-                pass = split[2]
-            )
-        }
+        val split = it.replace(":", "").split(" ")
+        val range = split[0].split("-")
+        Password(
+            min = range[0].toInt(),
+            max = range[1].toInt(),
+            char = split[1].first(),
+            pass = split[2]
+        )
+    }
 }

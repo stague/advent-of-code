@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec23: PuzzleDay(23, 2020) {
+class Dec23 : PuzzleDay(23, 2020) {
 
     override fun puzzle1(): Any = playCupGameWithCrabbo(parse(), 100).let { cups ->
         cups.listify(1, cups[1]!!, listOf()).joinToString("")
@@ -21,7 +21,7 @@ class Dec23: PuzzleDay(23, 2020) {
      * Explore the map until the starting key is found again, return as a list
      * Initially this was to print the list, then it turned out this was the answer for part 1 also
      */
-    private  tailrec fun Map<Int, Int>.listify(start: Int, last: Int = start, thingy: List<Int> = listOf()): List<Int> {
+    private tailrec fun Map<Int, Int>.listify(start: Int, last: Int = start, thingy: List<Int> = listOf()): List<Int> {
         return if (this[last] == start) {
             // end of the loop!
             thingy.plus(last)
@@ -81,5 +81,6 @@ class Dec23: PuzzleDay(23, 2020) {
         return cups
     }
 
-    private fun parse(): MutableList<Int> = load().single().split("").filter { it.isNotEmpty() }.map { it.toInt() }.toMutableList()
+    private fun parse(): MutableList<Int> =
+        load().single().split("").filter { it.isNotEmpty() }.map { it.toInt() }.toMutableList()
 }

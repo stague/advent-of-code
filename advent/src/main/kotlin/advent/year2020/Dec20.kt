@@ -3,7 +3,7 @@ package advent.year2020
 import java.awt.Point
 import advent.PuzzleDay
 
-class Dec20: PuzzleDay(20, 2020) {
+class Dec20 : PuzzleDay(20, 2020) {
 
     override fun puzzle1(): Any = makeAPrettyPicture().let { pp ->
         // find the corners of the pp and mult them up
@@ -46,7 +46,10 @@ class Dec20: PuzzleDay(20, 2020) {
         // reconfigure the map into a 2D array where things actually are
         return (maxY downTo minY).map { y ->
             (minX..maxX).map { x ->
-                picture[Point(x, y)]!!.orientation.trim() // leaving this trim here cause it doesn't harm part 1 and I need part 2 to work so I can go drink
+                picture[Point(
+                    x,
+                    y
+                )]!!.orientation.trim() // leaving this trim here cause it doesn't harm part 1 and I need part 2 to work so I can go drink
             }
         }
     }

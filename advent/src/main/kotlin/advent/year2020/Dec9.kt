@@ -15,7 +15,9 @@ class Dec9 : PuzzleDay(9, 2020) {
         }
     }
 
-    private fun List<Long>.findInvalid(): Long = this[(25 until size).first { !subList(it - 25, it).containsSum(this[it]) }]
+    private fun List<Long>.findInvalid(): Long =
+        this[(25 until size).first { !subList(it - 25, it).containsSum(this[it]) }]
+
     private fun List<Long>.containsSum(target: Long): Boolean = any { target - it != it && contains(target - it) }
 
     // find the right sublist, then create it again cause I love inefficiency apparently

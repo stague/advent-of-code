@@ -3,18 +3,19 @@ package advent.year2020
 import advent.PuzzleDay
 import kotlin.math.abs
 
-class Dec12: PuzzleDay(12, 2020) {
+class Dec12 : PuzzleDay(12, 2020) {
 
     override fun puzzle1(): Int = parse().sail(1 to 0, true)
 
-    override fun puzzle2(): Int = parse().sail(10 to 1,false)
+    override fun puzzle2(): Int = parse().sail(10 to 1, false)
 
     private fun List<Pair<Char, Int>>.sail(initialVector: Pair<Int, Int>, compassModsPosition: Boolean): Int {
         var vector = initialVector
         var position = 0 to 0
         forEach {
             when (it.first) {
-                'F' -> position = position.first + vector.first * it.second to position.second + vector.second * it.second
+                'F' -> position =
+                    position.first + vector.first * it.second to position.second + vector.second * it.second
                 'R' -> vector = vector.rotate(it.second)
                 'L' -> vector = vector.rotate(360 - it.second)
                 'N' -> if (compassModsPosition) {
@@ -42,7 +43,7 @@ class Dec12: PuzzleDay(12, 2020) {
         return abs(position.first) + abs(position.second)
     }
 
-    private fun parse() =load().map {
+    private fun parse() = load().map {
         Pair(it[0], it.substring(1).toInt())
     }
 

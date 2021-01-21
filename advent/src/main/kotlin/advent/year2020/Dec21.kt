@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec21: PuzzleDay(21, 2020) {
+class Dec21 : PuzzleDay(21, 2020) {
 
     override fun puzzle1(): Any = parse().let { inputLines ->
         foodPoisioningMap(inputLines).let { poisoning ->
@@ -13,7 +13,8 @@ class Dec21: PuzzleDay(21, 2020) {
     }
 
     // sort by allergen, then print list of ingredients
-    override fun puzzle2(): Any = foodPoisioningMap(parse()).toList().sortedBy { it.first }.joinToString(",") { it.second }
+    override fun puzzle2(): Any =
+        foodPoisioningMap(parse()).toList().sortedBy { it.first }.joinToString(",") { it.second }
 
     // parse input into a list of pairs: first is the set of allergens, second is the set of ingredients
     private fun parse(): List<Pair<Set<String>, Set<String>>> = load().map { line ->
@@ -31,7 +32,8 @@ class Dec21: PuzzleDay(21, 2020) {
         // map allergen to the set of common ingredients across all lines
         val allergenMap: Map<String, Set<String>> = uniqueAllergens.map { allergen ->
             // for just lines with the allergen, intersect their ingredient sets together, so only common ingredients remain
-            allergen to inputLines.filter { it.first.contains(allergen) }.map { it.second }.reduce { acc, set -> acc.intersect(set) }
+            allergen to inputLines.filter { it.first.contains(allergen) }.map { it.second }
+                .reduce { acc, set -> acc.intersect(set) }
         }.toMap()
 
         // split the allergens into known (1 allergen to 1 ingredient) and unknown (1 allergen to multiple ingredients)

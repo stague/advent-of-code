@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec16: PuzzleDay(16, 2020) {
+class Dec16 : PuzzleDay(16, 2020) {
     override fun puzzle1(): Any = parse().let { shebang ->
         shebang.rules.map { it.range }.flatten().toSet().let { validNums ->
             shebang.otherTickets.map { it.numbers.filterNot { validNums.contains(it) } }.flatten().sum()
@@ -21,6 +21,7 @@ class Dec16: PuzzleDay(16, 2020) {
                 val range2 = ranges[1].split("-").map { it.toLong() }.toRangeList()
                 return Rule(name, range1.plus(range2).toSet())
             }
+
             fun List<Long>.toRangeList() = (first()..last()).toList()
         }
 
@@ -55,7 +56,8 @@ class Dec16: PuzzleDay(16, 2020) {
         val shebang = parse()
         val masterValidSet: Set<Long> = shebang.rules.map { it.range }.flatten().toSet()
         // get rid of all the crap tickets from puzzle 1
-        val validTickets: List<Ticket> = shebang.otherTickets.filter { it.numbers.all { masterValidSet.contains(it) } }.plus(shebang.yourTicket)
+        val validTickets: List<Ticket> =
+            shebang.otherTickets.filter { it.numbers.all { masterValidSet.contains(it) } }.plus(shebang.yourTicket)
 
         // map ticket number index to a list of all valid choices for that index
         val sectionIdxToChoiceMap: Map<Int, List<String>> = validTickets.map { ticket ->

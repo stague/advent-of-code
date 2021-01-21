@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec19: PuzzleDay(19, 2020) {
+class Dec19 : PuzzleDay(19, 2020) {
 
     override fun puzzle1(): Any = parse().let { rulesToMessages ->
         // first arg is the rule map, second is the list of messages
@@ -36,7 +36,7 @@ class Dec19: PuzzleDay(19, 2020) {
          * Little nasty since the rule carries the rule map along with it into the recursive steps
          */
         fun find(message: String, messageIdx: Int, ruleMap: Map<String, Rule>): List<Int> =
-            if(value == null) {
+            if (value == null) {
                 // recurse case: check all of the subRule lists and generate a list of max matching index from that
                 subRules.fold(listOf()) { subRuleIdxAcc, subRule ->
                     // note: this running orMessageIdxList accumulator is almost ALWAYS empty or size one

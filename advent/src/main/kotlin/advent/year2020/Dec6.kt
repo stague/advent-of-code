@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec6: PuzzleDay(6, 2020) {
+class Dec6 : PuzzleDay(6, 2020) {
 
     override fun puzzle1() = boop().map { beep(it).toSet() }.sumBy { it.size }
 

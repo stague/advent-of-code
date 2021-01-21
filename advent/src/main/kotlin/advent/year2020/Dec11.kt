@@ -2,10 +2,13 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec11: PuzzleDay(11, 2020) {
+class Dec11 : PuzzleDay(11, 2020) {
 
-    override fun puzzle1(): Int = parse().findStableSeating(maxNeighbors = 4, transformFloor = true).countOccupiedSeats()
-    override fun puzzle2(): Int = parse().findStableSeating(maxNeighbors = 5, transformFloor = false).countOccupiedSeats()
+    override fun puzzle1(): Int =
+        parse().findStableSeating(maxNeighbors = 4, transformFloor = true).countOccupiedSeats()
+
+    override fun puzzle2(): Int =
+        parse().findStableSeating(maxNeighbors = 5, transformFloor = false).countOccupiedSeats()
 
     private fun List<List<Int>>.findStableSeating(
         maxNeighbors: Int,

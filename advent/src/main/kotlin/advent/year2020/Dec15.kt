@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec15: PuzzleDay(15, 2020) {
+class Dec15 : PuzzleDay(15, 2020) {
 
     override fun puzzle1() = doTheSlightlyFasterThing(2020)
     override fun puzzle2() = doTheSlowThing(30000000)
@@ -10,8 +10,8 @@ class Dec15: PuzzleDay(15, 2020) {
     // pre-load some arrays of "big enough size" to hold stuff
     private fun doTheSlightlyFasterThing(turns: Int): Any {
         val numbers = load(delimiter = ",").map { it.toInt() }
-        val timesSpoken = Array(turns+1) { 0 }
-        val lastSpoken = Array(turns+1) { 0 }
+        val timesSpoken = Array(turns + 1) { 0 }
+        val lastSpoken = Array(turns + 1) { 0 }
 
         // load the initial turns in
         numbers.forEachIndexed { idx, num ->
@@ -19,7 +19,7 @@ class Dec15: PuzzleDay(15, 2020) {
             lastSpoken[num] = idx + 1
         }
 
-        return (numbers.size+1..turns).fold(numbers.last()) { previousNumber, turn ->
+        return (numbers.size + 1..turns).fold(numbers.last()) { previousNumber, turn ->
             val speak = if (timesSpoken[previousNumber] == 1) {
                 0
             } else {
@@ -37,7 +37,7 @@ class Dec15: PuzzleDay(15, 2020) {
         val timesSpokenMap = numbers.map { it to 1L }.toMap(HashMap())
         val lastSpokenMap = numbers.mapIndexed { idx, num -> num to idx + 1L }.toMap(HashMap())
 
-        return (numbers.size+1..turns).fold(numbers.last()) { previousNumber, turn ->
+        return (numbers.size + 1..turns).fold(numbers.last()) { previousNumber, turn ->
             val speak = if (timesSpokenMap[previousNumber] == 1L) {
                 0L
             } else {

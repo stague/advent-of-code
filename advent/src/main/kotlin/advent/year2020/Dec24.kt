@@ -6,15 +6,15 @@ import advent.PuzzleDay
  * resource https://www.redblobgames.com/grids/hexagons/
  * was SUPER helpful on this one, used the 3D coordinate system for this puzzle
  */
-class Dec24: PuzzleDay(24, 2020) {
+class Dec24 : PuzzleDay(24, 2020) {
 
     override fun puzzle1(): Any = flipYourShit().size
 
     override fun puzzle2(): Any = (1..100).fold(flipYourShit()) { hexes, round ->
-            flipAroundRightRoundLikeARecordBaby(hexes).also {
-                println("Day $round: ${it.size}")
-            }
-        }.size
+        flipAroundRightRoundLikeARecordBaby(hexes).also {
+            println("Day $round: ${it.size}")
+        }
+    }.size
 
     private fun flipYourShit(): Set<Hex> = parse().let { moveLists ->
         val startingHex = Hex(0, 0, 0)
@@ -31,14 +31,14 @@ class Dec24: PuzzleDay(24, 2020) {
 
         val newFlippedNeighbors: List<Hex> = neighbors.filterNot { it in flippedHexes }.mapNotNull { neighbor ->
             val flippedNeighborNeighbors = flippedHexes.intersect(neighbor.neighbors()).size
-            if(flippedNeighborNeighbors == 2) {
+            if (flippedNeighborNeighbors == 2) {
                 neighbor
             } else {
                 null
             }
         }
 
-        if(flippedNeighbors == 0 || flippedNeighbors > 2) {
+        if (flippedNeighbors == 0 || flippedNeighbors > 2) {
             newFlippedNeighbors
         } else {
             newFlippedNeighbors.plus(hex)

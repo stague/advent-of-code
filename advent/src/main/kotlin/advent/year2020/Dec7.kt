@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec7: PuzzleDay(7, 2020) {
+class Dec7 : PuzzleDay(7, 2020) {
     override fun puzzle1(): Int {
         val tree = Node("shiny gold")
         val bags = parse()

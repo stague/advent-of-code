@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec13: PuzzleDay(13, 2020) {
+class Dec13 : PuzzleDay(13, 2020) {
 
     override fun puzzle1(): Any {
 
@@ -38,7 +38,7 @@ class Dec13: PuzzleDay(13, 2020) {
                 while ((time + idx) % bus != 0L) {
                     time += hop // find the next common time
                 }
-                println("Common time for bus $bus at time $time offset $idx [${time+idx}] hop $hop")
+                println("Common time for bus $bus at time $time offset $idx [${time + idx}] hop $hop")
                 hop *= bus // these are all primes, so just keep a running multiple of all of them as the hop size
             }
         }

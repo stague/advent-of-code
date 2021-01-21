@@ -5,7 +5,7 @@ import advent.PuzzleDay
 /**
  * Reverse polish notation, with a twist
  */
-class Dec18: PuzzleDay(18, 2020) {
+class Dec18 : PuzzleDay(18, 2020) {
 
     override fun puzzle1(): Any = reverseElfNotationEvaluationMachination {
         when (it) {

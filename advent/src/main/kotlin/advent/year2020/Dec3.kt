@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec3: PuzzleDay(3, 2020) {
+class Dec3 : PuzzleDay(3, 2020) {
 
     override fun puzzle2(): Any = DOTHEDEW(parseInput())
 
@@ -23,13 +23,13 @@ class Dec3: PuzzleDay(3, 2020) {
             }.second
 
     private fun parseInput(): List<List<Int>> = load().map { row ->
-            row.trim().toCharArray().map {
-                if (it == '#')
-                    1
-                else
-                    0
-            }
+        row.trim().toCharArray().map {
+            if (it == '#')
+                1
+            else
+                0
         }
+    }
 
     private fun countTreesLoop(rows: List<List<Int>>, colStep: Int, rowStep: Int): Long {
         // god i forgot how many variables you have to use with a for loop wtf

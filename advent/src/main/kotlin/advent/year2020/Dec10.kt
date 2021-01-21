@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec10: PuzzleDay(10, 2020) {
+class Dec10 : PuzzleDay(10, 2020) {
 
     override fun puzzle1() = parse().fold(AdapterWad(), AdapterWad::addAnyAdapter).let {
         it.threeJolt * it.oneJolt

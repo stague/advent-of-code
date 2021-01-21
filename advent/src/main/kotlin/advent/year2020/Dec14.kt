@@ -1,9 +1,10 @@
 @file:Suppress("EXPERIMENTAL_API_USAGE")
+
 package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec14: PuzzleDay(14, 2020) {
+class Dec14 : PuzzleDay(14, 2020) {
 
     override fun puzzle1(): Any {
         val map: MutableMap<Long, Long> = mutableMapOf()

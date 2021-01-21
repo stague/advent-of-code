@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec17: PuzzleDay(17, 2020) {
+class Dec17 : PuzzleDay(17, 2020) {
 
     private data class Coord(val w: Int, val z: Int, val y: Int, val x: Int)
 
@@ -16,17 +16,19 @@ class Dec17: PuzzleDay(17, 2020) {
             // only care about active cells for the initial set of coordinates
             activeCells.map { activeCellCoord ->
                 // from each active coordinate, build a set of ALL its neighbors, these are the coords to test with the rule set
-                buildNeighbors(true, activeCellCoord, wRange).filterNot { alreadyTriedSet.contains(it) }.mapNotNull { testCellCord ->
-                    alreadyTriedSet.add(testCellCord)
-                    val isActive = activeCells.contains(testCellCord)
-                    // from each test cell cord, get ALL of its neighbors to use in the nearby active list
-                    val activeNearbyCount = buildNeighbors(false, testCellCord, wRange).filter { activeCells.contains(it) }.size
-                    if ((isActive && activeNearbyCount in listOf(2, 3)) || (!isActive && activeNearbyCount == 3)) {
-                        testCellCord // activate or keep active
-                    } else {
-                        null
+                buildNeighbors(true, activeCellCoord, wRange).filterNot { alreadyTriedSet.contains(it) }
+                    .mapNotNull { testCellCord ->
+                        alreadyTriedSet.add(testCellCord)
+                        val isActive = activeCells.contains(testCellCord)
+                        // from each test cell cord, get ALL of its neighbors to use in the nearby active list
+                        val activeNearbyCount =
+                            buildNeighbors(false, testCellCord, wRange).filter { activeCells.contains(it) }.size
+                        if ((isActive && activeNearbyCount in listOf(2, 3)) || (!isActive && activeNearbyCount == 3)) {
+                            testCellCord // activate or keep active
+                        } else {
+                            null
+                        }
                     }
-                }
             }.flatten().toSet().also { println("Cycle $iter had ${it.size} active cells") }
         }.size
 
@@ -35,20 +37,25 @@ class Dec17: PuzzleDay(17, 2020) {
      * x,y,z are always checked at (-1..1) range
      * w is added for puzzle2
      */
-    private fun buildNeighbors(includeSelf: Boolean, coord: Coord, wRange: IntRange = (0..0), range: IntRange = (-1..1)): Set<Coord> =
-            wRange.map { wMod ->
-                range.map { zMod ->
-                    range.map { yMod ->
-                        range.mapNotNull { xMod ->
-                            if (!includeSelf && wMod == 0 && zMod == 0 && yMod == 0 && xMod == 0) {
-                                null
-                            } else {
-                                Coord(coord.w + wMod, coord.z + zMod, coord.y + yMod, coord.x + xMod)
-                            }
+    private fun buildNeighbors(
+        includeSelf: Boolean,
+        coord: Coord,
+        wRange: IntRange = (0..0),
+        range: IntRange = (-1..1)
+    ): Set<Coord> =
+        wRange.map { wMod ->
+            range.map { zMod ->
+                range.map { yMod ->
+                    range.mapNotNull { xMod ->
+                        if (!includeSelf && wMod == 0 && zMod == 0 && yMod == 0 && xMod == 0) {
+                            null
+                        } else {
+                            Coord(coord.w + wMod, coord.z + zMod, coord.y + yMod, coord.x + xMod)
                         }
-                    }.flatten()
+                    }
                 }.flatten()
-            }.flatten().toSet()
+            }.flatten()
+        }.flatten().toSet()
 
     private fun parse(): Set<Coord> = load().mapIndexed { yIdx, row ->
         row.toCharArray().mapIndexed { xIdx, char ->

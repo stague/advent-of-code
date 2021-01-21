@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec5: PuzzleDay(5, 2020) {
+class Dec5 : PuzzleDay(5, 2020) {
 
     override fun puzzle1(): Any = findMaxPass()
 
@@ -17,8 +17,8 @@ class Dec5: PuzzleDay(5, 2020) {
     private fun buildPassNumbers(): List<Int> = load().map { buildPassNumber(it) }
     private fun buildPassNumber(pass: String): Int = findRow(pass) * 8 + findSeat(pass)
 
-    private fun findSeat(pass: String): Int = boop(pass.slice(7 until 10),  'L', (0 until 8).toList())
-    private fun findRow(pass: String): Int = boop(pass.slice(0 until 7),  'F', (0 until 128).toList())
+    private fun findSeat(pass: String): Int = boop(pass.slice(7 until 10), 'L', (0 until 8).toList())
+    private fun findRow(pass: String): Int = boop(pass.slice(0 until 7), 'F', (0 until 128).toList())
 
     /**
      * Tail recursion!
