@@ -9,7 +9,7 @@ import advent.PuzzleDay
  * part 1: 2081
  * part 2: 2341
  */
-class Dec3Y2015 : PuzzleDay(3, 2015) {
+class Dec3 : PuzzleDay(3, 2015) {
 
     data class Santa(val visits: List<Coord> = listOf(Coord(0, 0))) {
         fun visit(dir: Dir): Santa = Santa(visits + visits.last().move(dir))

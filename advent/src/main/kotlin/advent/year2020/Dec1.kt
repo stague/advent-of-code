@@ -2,7 +2,7 @@ package advent.year2020
 
 import advent.PuzzleDay
 
-class Dec1: PuzzleDay(1, 2020) {
+class Dec1 : PuzzleDay(1, 2020) {
 
     override fun puzzle1(): Any {
         val array = load().map { it.toInt() }.sorted()

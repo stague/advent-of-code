@@ -7,7 +7,7 @@ import advent.PuzzleDay
  * part 1: 280
  * part 2: 1797
  */
-class Dec1Y2015 : PuzzleDay(1, 2015) {
+class Dec1 : PuzzleDay(1, 2015) {
 
     override fun puzzle1(): Any = parseInput().sum()
 

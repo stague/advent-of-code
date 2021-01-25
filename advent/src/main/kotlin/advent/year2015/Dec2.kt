@@ -7,7 +7,7 @@ import advent.PuzzleDay
  * part 1: 1606483
  * part 2: 3842356
  */
-class Dec2Y2015 : PuzzleDay(2, 2015) {
+class Dec2 : PuzzleDay(2, 2015) {
 
     // TODO write a cartesian product or something for this kind of thing
     override fun puzzle1(): Any = parse().map { box ->
