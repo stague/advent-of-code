@@ -1,7 +1,20 @@
 package advent
 
+/**
+ * Cardinal directions
+ */
 enum class Dir { N, S, E, W }
+
+/**
+ * 2D coordinate
+ */
 data class Coord(val x: Int, val y: Int) {
+
+    companion object {
+        fun parse(str: String) = str.split(",").let {
+            Coord(it[0].toInt(), it[1].toInt())
+        }
+    }
 
     fun move(dir: Dir, distance: Int = 1): Coord =
         when (dir) {
@@ -42,9 +55,29 @@ data class Coord(val x: Int, val y: Int) {
             270 -> Coord(y * -1, x)
             else -> throw IllegalStateException("Coord $this does not support rotation $rotation")
         }
+
+    /**
+     * Return the list of all coords in a rectangle from this coord to the target coord, treating the two coords as corners
+     * ex: (0,0).enumerate(2,2) returns
+     * [Coord(x=0, y=0), Coord(x=0, y=1), Coord(x=0, y=2), Coord(x=1, y=0), Coord(x=1, y=1), Coord(x=1, y=2), Coord(x=2, y=0), Coord(x=2, y=1), Coord(x=2, y=2)]
+     */
+    fun enumerateRectangle(toCoord: Coord): List<Coord> {
+        val xs = listOf(x, toCoord.x).sorted()
+        val ys = listOf(y, toCoord.y).sorted()
+        return (xs[0]..xs[1]).map { mx ->
+            (ys[0]..ys[1]).map { my ->
+                Coord(mx, my)
+            }
+        }.flatten()
+    }
 }
 
 enum class HexDir { E, W, NE, NW, SE, SW }
+
+/**
+ * Hex coordinates based on https://www.redblobgames.com/grids/hexagons/
+ * Uses cube coordinates
+ */
 data class Hex(val x: Int, val y: Int, val z: Int) {
 
     fun move(dir: HexDir): Hex =
