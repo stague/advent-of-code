@@ -5,7 +5,7 @@ import advent.PuzzleDay
 class Dec25 : PuzzleDay(25, 2020) {
 
     override fun puzzle1(): Any {
-        val keys = listOf(1965712L, 19072108L)
+        val keys = listOf(19241437L, 17346587L)
         val firstKeyLoop = hACKtHEpLANET(keys)
         val otherKey = keys.filterNot { it == firstKeyLoop.first }.single()
         return hACKtHEpLANET(subject = otherKey, stop = firstKeyLoop.second).first

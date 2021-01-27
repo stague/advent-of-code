@@ -2,6 +2,9 @@ package advent.year2020
 
 import advent.PuzzleDay
 
+/**
+ * no idea why Dec1 is freaking out intellij but naming the file something more specific is making it shut up so whatever this is just for fun anyway
+ */
 class Dec1 : PuzzleDay(1, 2020) {
 
     override fun puzzle1(): Any {
@@ -21,16 +24,6 @@ class Dec1 : PuzzleDay(1, 2020) {
     }
 
     override fun puzzle2(): Any {
-        val array = load().map { it.toInt() }.sorted()
-        array.forEachIndexed { idx1, first ->
-            array.drop(idx1 + 1).find { it + first == 2020 }?.let { second ->
-                return "$first, $second, ${first * second}"
-            }
-        }
-        throw IllegalStateException("well that didn't work ya dummy")
-    }
-
-    private fun findSum3(): String {
         val list = load().map { it.toInt() }.sorted()
         list.forEachIndexed { idx1, first ->
             // if first + second + min already too big even for 2020, just filter

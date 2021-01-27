@@ -3,6 +3,7 @@ package advent.year2015
 import advent.PuzzleDay
 
 /**
+ * no idea why Dec1 is freaking out intellij but naming the file something more specific is making it shut up so whatever this is just for fun anyway
  * https://adventofcode.com/2015/day/1
  * part 1: 280
  * part 2: 1797

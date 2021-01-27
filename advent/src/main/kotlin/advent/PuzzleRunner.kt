@@ -1,9 +1,9 @@
 package advent
 
-import advent.year2015.Dec6
+import advent.year2020.Dec22
 
 fun main() {
-    val output = Dec6().run()
+    val output = Dec22().run()
     println("--------------------------------------------------------------------------------")
     println(output)
 }

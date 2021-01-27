@@ -4,6 +4,8 @@ import advent.PuzzleDay
 
 class Dec3 : PuzzleDay(3, 2020) {
 
+    override fun puzzle1(): Any = countTrees(parseInput(), 3, 1)
+
     override fun puzzle2(): Any = DOTHEDEW(parseInput())
 
     private fun DOTHEDEW(rows: List<List<Int>>) =
