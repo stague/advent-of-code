@@ -37,7 +37,7 @@ open class PuzzleDay(val day: Int, val year: Int) {
 
     @Test
     open fun testPuzzle2() {
-        puzzle1().let {
+        puzzle2().let {
             println("Puzzle 2: $it")
             assertNotEquals("TODO", it, "Puzzle 2 not implemented")
         }
