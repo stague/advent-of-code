@@ -1,17 +1,10 @@
 package advent
 
 import java.nio.file.Paths
+import kotlin.test.Test
+import kotlin.test.assertNotEquals
 
 open class PuzzleDay(val day: Int, val year: Int) {
-
-    private fun <R> measureTime(item: String, fn: () -> R): R =
-        System.currentTimeMillis().let { start ->
-            println("--------------------------------------------------------------------------------")
-            println("START $item")
-            fn().also {
-                println("COMPLETE $item took ${System.currentTimeMillis() - start}ms")
-            }
-        }
 
     private fun getDayFilename(day: Int, year: Int, testNum: Int? = null): String =
         "$year/Dec${day}${if (testNum != null) "-test-$testNum" else ""}.txt"
@@ -23,8 +16,8 @@ open class PuzzleDay(val day: Int, val year: Int) {
         // TODO resources folder acting up. this was working now does not. forcing absolute path instead since this will never be a jar anyway :shrug:
         // javaClass.getResource(filename).readText().split(delimiter)
 
-        val fullFile = Paths.get("advent/src/main/resources/${filename}").toAbsolutePath()
-        println("loading resource: $fullFile")
+        val fullFile = Paths.get("src/main/resources/${filename}").toAbsolutePath()
+//        println("loading resource: $fullFile")
         return fullFile.toUri().toURL().readText().split(delimiter)
     }
 
@@ -34,13 +27,19 @@ open class PuzzleDay(val day: Int, val year: Int) {
 
     open fun puzzle2(): Any = "TODO"
 
-    open fun runSingle(isOne: Boolean): Any = measureTime("Puzzle ${if (isOne) "1" else "2"}") {
-        if (isOne) {
-            puzzle1()
-        } else {
-            puzzle2()
+    @Test
+    open fun testPuzzle1() {
+        puzzle1().let {
+            println("Puzzle 1: $it")
+            assertNotEquals("TODO", it, "Puzzle 1 not implemented")
         }
     }
 
-    open fun run(): Any = "Puzzle 1: ${runSingle(true)} Puzzle 2: ${runSingle(false)}"
+    @Test
+    open fun testPuzzle2() {
+        puzzle1().let {
+            println("Puzzle 2: $it")
+            assertNotEquals("TODO", it, "Puzzle 2 not implemented")
+        }
+    }
 }
