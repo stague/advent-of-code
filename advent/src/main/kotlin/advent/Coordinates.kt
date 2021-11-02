@@ -1,14 +1,48 @@
 package advent
 
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
+
 /**
  * Cardinal directions
  */
-enum class Dir { N, S, E, W }
+enum class Dir {
+    N, S, E, W;
+
+    /**
+     * Turn left or right, get a new Dir
+     */
+    fun turn(t: Turn): Dir =
+        when (this) {
+            N -> when (t) {
+                Turn.R -> E
+                Turn.L -> W
+            }
+            S -> when (t) {
+                Turn.R -> W
+                Turn.L -> E
+            }
+            E -> when (t) {
+                Turn.R -> S
+                Turn.L -> N
+            }
+            W -> when (t) {
+                Turn.R -> N
+                Turn.L -> S
+            }
+        }
+}
+
+enum class Turn {
+    R,
+    L
+}
 
 /**
  * 2D coordinate
  */
-data class Coord(val x: Int, val y: Int) {
+data class Coord(val x: Int = 0, val y: Int = 0) {
 
     companion object {
         fun parse(str: String) = str.split(",").let {
@@ -70,6 +104,16 @@ data class Coord(val x: Int, val y: Int) {
             }
         }.flatten()
     }
+
+    /**
+     * Pythagoras figured this out so we don't have to
+     */
+    fun distance(to: Coord): Double = sqrt((to.x - x).toDouble().pow(2) + (to.y - y).toDouble().pow(2))
+
+    /**
+     * https://en.wikipedia.org/wiki/Taxicab_geometry
+     */
+    fun taxiDistance(to: Coord): Int = abs(to.x - x) + abs(to.y - y)
 }
 
 enum class HexDir { E, W, NE, NW, SE, SW }
