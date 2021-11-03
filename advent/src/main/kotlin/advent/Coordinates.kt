@@ -10,6 +10,17 @@ import kotlin.math.sqrt
 enum class Dir {
     N, S, E, W;
 
+    companion object {
+        fun fromUDLR(uplr: Char): Dir =
+            when(uplr) {
+                'U' -> N
+                'D' -> S
+                'L' -> W
+                'R' -> E
+                else -> throw UnsupportedOperationException("Can't turn $uplr from UDLR to NSWE!")
+            }
+    }
+
     /**
      * Turn left or right, get a new Dir
      */
@@ -114,6 +125,12 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
      * https://en.wikipedia.org/wiki/Taxicab_geometry
      */
     fun taxiDistance(to: Coord): Int = abs(to.x - x) + abs(to.y - y)
+}
+
+fun Pair<Coord, Coord>.contains(c: Coord): Boolean {
+    val xs = listOf(first.x, second.x).sorted()
+    val ys = listOf(first.y, second.y).sorted()
+    return c.x >= xs.first() && c.x <= xs.last() && c.y >= ys.first() && c.y <= ys.last()
 }
 
 enum class HexDir { E, W, NE, NW, SE, SW }
