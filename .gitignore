@@ -1,7 +1,4 @@
 .gradle
 build
 .idea
-gradle/wrapper
-gradlew
-gradlew.bat
 out/
