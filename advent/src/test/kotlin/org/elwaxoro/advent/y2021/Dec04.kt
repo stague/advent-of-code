@@ -9,7 +9,7 @@ import org.elwaxoro.advent.rowColSwap
  */
 class Dec04 : PuzzleDayTester(4, 2021) {
 
-    override fun puzzle1(): Any = loadBoards2().let { (calls, boards) ->
+    override fun puzzle1(): Any = loadBoards().let { (calls, boards) ->
         calls.forEach { call ->
             boards.forEach { board ->
                 if (board.callNumber(call)) {
@@ -19,7 +19,7 @@ class Dec04 : PuzzleDayTester(4, 2021) {
         }
     }
 
-    override fun puzzle2(): Any = loadBoards2().let { (calls, boards) ->
+    override fun puzzle2(): Any = loadBoards().let { (calls, boards) ->
         val remainingBoards = boards.toMutableList()
         val winningBoards = mutableListOf<Board>()
         calls.forEach { call ->
@@ -67,7 +67,7 @@ class Dec04 : PuzzleDayTester(4, 2021) {
             }.sumOf { it.first }
     }
 
-    private fun loadBoards2(): Pair<List<Int>, List<Board>> = load(delimiter = "\n\n").let { chunks ->
+    private fun loadBoards(): Pair<List<Int>, List<Board>> = load(delimiter = "\n\n").let { chunks ->
         val calls = chunks[0].split(",").map { it.toInt() }
         val boards = chunks.drop(1).map { raw ->
             Board(raw.split("\n").map { row -> row.trim().split(Regex("\\W+")).map { Pair(it.toInt(), false) }.toMutableList() }.toMutableList())
