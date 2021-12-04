@@ -28,3 +28,15 @@ fun List<Int>.bitFlip(): List<Int> = map {
         else -> throw IllegalStateException("can't bit flip $it")
     }
 }
+
+/**
+ * Rotate a matrix by swapping rows for columns
+ */
+fun <T> MutableList<MutableList<T>>.rowColSwap(): MutableList<MutableList<T>> =
+    MutableList(size) { MutableList(size) { this[0][0] } }.also { translate ->
+        forEachIndexed { rowIdx, row ->
+            row.forEachIndexed { colIdx, value ->
+                translate[colIdx][rowIdx] = value
+            }
+        }
+    }
