@@ -14,7 +14,7 @@ class Dec05 : PuzzleDayTester(5, 2021) {
 
     private fun List<List<Coord>>.enumerateAndCount() = flatMap { it.first().enumerateLine(it.last()) }.groupingBy { it }.eachCount().filter { it.value > 1 }.size
 
-    private fun parse(): List<List<Coord>> = load().map { line -> line.split(" -> ").map(Coord::parse) }
+    private fun parse(): List<List<Coord>> = load().map { it.split(" -> ").map(Coord::parse) }
 
 // Copied from Extensions.kt and Coordinates.kt
 //    fun Coord.enumerateLine(toCoord: Coord): List<Coord> =
