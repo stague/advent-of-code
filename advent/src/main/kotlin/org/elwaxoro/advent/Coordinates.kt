@@ -1,5 +1,6 @@
 package org.elwaxoro.advent
 
+import javax.swing.text.html.HTML.Tag.P
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -15,7 +16,7 @@ enum class Dir {
          * Up, down, left, right to N, S, E, W
          */
         fun fromUDLR(uplr: Char): Dir =
-            when(uplr) {
+            when (uplr) {
                 'U' -> N
                 'D' -> S
                 'L' -> W
@@ -121,6 +122,17 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
             }
         }.flatten()
     }
+
+    /**
+     * Return the list of all coords in a line from this coord to the target coord, includiing both start and end coords
+     * Only produces straight lines for vertical, horizontal, and 45deg lines
+     */
+    fun enumerateLine(toCoord: Coord): List<Coord> =
+        (abs(x -toCoord.x) + 1 to abs(y - toCoord.y) + 1).let { (dx, dy) ->
+            x.toward(toCoord.x).padTo(dy).zip(y.toward(toCoord.y).padTo(dx)).map { (x, y) ->
+                Coord(x, y)
+            }
+        }
 
     /**
      * Pythagoras figured this out so we don't have to

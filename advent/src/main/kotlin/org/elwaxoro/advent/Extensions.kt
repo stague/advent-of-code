@@ -40,3 +40,13 @@ fun <T> MutableList<MutableList<T>>.rowColSwap(): MutableList<MutableList<T>> =
             }
         }
     }
+
+/**
+ * Based on https://stackoverflow.com/questions/9562605/in-kotlin-can-i-create-a-range-that-counts-backwards
+ * Kotlin ranges don't support positive or negative directions at the same time
+ */
+fun Int.toward(to: Int): IntProgression = IntProgression.fromClosedRange(this, to, 1.takeIf { this <= to } ?: -1)
+
+fun IntProgression.padTo(newSize: Int): List<Int> = toList().padTo(newSize)
+
+fun <T> List<T>.padTo(newSize: Int): List<T> = takeIf { size >= newSize } ?: plus(List(newSize - size) { last() })
