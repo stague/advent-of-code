@@ -7,22 +7,26 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec06 : PuzzleDayTester(6, 2021) {
 
-    override fun puzzle1(): Any = countTheFishies(80)
-    override fun puzzle2(): Any = countTheFishies(256)
+    override fun puzzle1(): Any = countTheFishes(80)
+    override fun puzzle2(): Any = countTheFishes(256)
 
-    private fun countTheFishies(days: Int) =
-        // Lanternfish spawn on an 8 day cycle plus one extra bucket for newbies
-        MutableList(9) { 0L }.also { fishes ->
-            // load the starting fish in there
-            load(delimiter = ",").map { it.toInt() }.groupingBy { it }.eachCount().map { (idx, count) -> fishes[idx] = count.toLong() }
-        }.let { fishes ->
-            (0 until days).forEach { day ->
-                val spawnIdx = day % 8 // ignore last bucket, that's the nursery and it never spawns
-                val spawnCount = fishes[spawnIdx] // fish havin babies today
-                fishes[(spawnIdx + 7) % 8] += spawnCount // move the fish that just spawned to their new spawning day
-                fishes[spawnIdx] = fishes[8] // dump out the nursery into today so they can spawn next time it comes around
-                fishes[8] = spawnCount // babies go to the nursery
-            }
-            fishes.sum() // there are plenty more fish in the sea now!
-        }
+    private fun countTheFishes(days: Int) =
+        (0 until days).map { it % 8 } // ignore last bucket for iteration, that's the nursery and it never spawns
+            .fold(loadTheFishes()) { fishes, day ->
+                fishes.also {
+                    fishes[day] = fishes[8].also { // dump out the nursery into today so they can spawn next time it comes around
+                        fishes[8] = fishes[day] // babies go to the nursery
+                        fishes[(day + 7) % 8] += fishes[day] // move the fish that just spawned to their new spawning day
+                    }
+                }
+            }.sum()  // there are plenty more fish in the sea now!
+
+    /**
+     * Load the starting fish into their spawning-day slots
+     * Lanternfish spawn on an 8 day cycle plus one extra bucket for newbies
+     */
+    private fun loadTheFishes(): MutableList<Long> = MutableList(9) { 0L }.also { fishes ->
+        load(delimiter = ",").map { it.toInt() }.groupingBy { it }.eachCount()
+            .map { (idx, count) -> fishes[idx] = count.toLong() }
+    }
 }
