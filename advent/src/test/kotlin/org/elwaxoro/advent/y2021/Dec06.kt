@@ -23,6 +23,6 @@ class Dec06 : PuzzleDayTester(6, 2021) {
                 fishes[spawnIdx] = fishes[8] // dump out the nursery into today so they can spawn next time it comes around
                 fishes[8] = spawnCount // babies go to the nursery
             }
-            fishes.sum()
+            fishes.sum() // there are plenty more fish in the sea now!
         }
 }
