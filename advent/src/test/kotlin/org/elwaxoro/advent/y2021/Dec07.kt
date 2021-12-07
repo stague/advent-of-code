@@ -24,7 +24,7 @@ class Dec07 : PuzzleDayTester(7, 2021) {
     private fun List<Int>.crabboFuelGuesser5000(
         guessProvider: (crabbos: List<Int>) -> Double,
         adderUpper: (opt: Int, crab: Int) -> Int
-    ): Int = guessProvider(load(delimiter = ",").map { it.toInt() }).let { guess ->
+    ): Int = guessProvider(this).let { guess ->
         listOf(ceil(guess).toInt(), floor(guess).toInt()).map { opt ->
             map { adderUpper(opt, it) }.sum()
         }.minOrNull()!!
