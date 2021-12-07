@@ -21,6 +21,8 @@ abstract class PuzzleDay(val day: Int, val year: Int) {
 
     open fun load(testNum: Int? = null, delimiter: String = "\n") = loadDay(day, year, testNum, delimiter)
 
+    open fun loadToInt(testNum: Int? = null, delimiter: String = "\n"): List<Int> = load(testNum, delimiter).map { it.toInt() }
+
     open fun puzzle1(): Any = "TODO"
 
     open fun puzzle2(): Any = "TODO"
