@@ -50,3 +50,11 @@ fun Int.toward(to: Int): IntProgression = IntProgression.fromClosedRange(this, t
 fun IntProgression.padTo(newSize: Int): List<Int> = toList().padTo(newSize)
 
 fun <T> List<T>.padTo(newSize: Int): List<T> = takeIf { size >= newSize } ?: plus(List(newSize - size) { last() })
+
+fun List<Int>.median(): Double = sorted().let {
+    if (size % 2 == 0) {
+        (it[size / 2] + it[size / 2 - 1]) / 2.0
+    } else {
+        it[size / 2].toDouble()
+    }
+}
