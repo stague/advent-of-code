@@ -13,20 +13,20 @@ class Dec07 : PuzzleDayTester(7, 2021) {
 
     override fun puzzle1(): Any = loadToInt(delimiter = ",").crabboFuelGuesser5000(
         { it.median() },
-        { opt, crab -> abs(crab - opt) }
+        { target, crab -> abs(crab - target) }
     )
 
     override fun puzzle2(): Any = loadToInt(delimiter = ",").crabboFuelGuesser5000(
         { it.average() },
-        { opt, crab -> (1..abs(crab - opt)).sum() }
+        { target, crab -> (1..abs(crab - target)).sum() }
     )
 
     private fun List<Int>.crabboFuelGuesser5000(
-        guessProvider: (crabbos: List<Int>) -> Double,
-        adderUpper: (opt: Int, crab: Int) -> Int
-    ): Int = guessProvider(this).let { guess ->
-        listOf(ceil(guess).toInt(), floor(guess).toInt()).map { opt ->
-            map { adderUpper(opt, it) }.sum()
+        targetingSubsystem: (crabbos: List<Int>) -> Double,
+        fuelCalculator: (target: Int, crab: Int) -> Int
+    ): Int = targetingSubsystem(this).let { target ->
+        listOf(ceil(target).toInt(), floor(target).toInt()).map { opt ->
+            map { fuelCalculator(opt, it) }.sum()
         }.minOrNull()!!
     }
 }
