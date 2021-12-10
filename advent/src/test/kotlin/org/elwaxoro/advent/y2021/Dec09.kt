@@ -13,8 +13,8 @@ class Dec09 : PuzzleDayTester(9, 2021) {
 
     override fun puzzle1(): Any = parse().let { grid ->
         grid.mapIndexed { rowIdx, row ->
-            row.mapIndexedNotNull { colIdx, col ->
-                (col + 1).takeIf { grid.neighbors(rowIdx, colIdx).none { it <= col } }
+            row.mapIndexedNotNull { colIdx, height ->
+                (height + 1).takeIf { grid.neighbors(rowIdx, colIdx).none { it <= height } }
             }
         }.flatten().sum()
     }
@@ -24,9 +24,9 @@ class Dec09 : PuzzleDayTester(9, 2021) {
         val basinMap = mutableMapOf<Coord, Int>() // each point in the grid, mapped to the basin it belongs to
 
         grid.forEachIndexed { rowIdx, row ->
-            row.forEachIndexed { colIdx, col ->
+            row.forEachIndexed { colIdx, height ->
                 Coord(colIdx, rowIdx).takeIf {
-                    col != 9 && !basinMap.contains(it)
+                    height != 9 && !basinMap.contains(it)
                 }?.let {
                     // New basin! Explore!
                     basinCtr += 1
@@ -46,7 +46,7 @@ class Dec09 : PuzzleDayTester(9, 2021) {
         coord: Coord
     ) {
         grid.neighborCoords(coord.y, coord.x)
-            .filterNot { (coord, height) -> basinMap.contains(coord) || height == 9 } // ignore neighbors already mapped or too tall
+            .filterNot { (coord, height) -> height == 9 || basinMap.contains(coord) } // ignore neighbors already mapped or too tall
             .map { (coord, _) -> coord.also { basinMap[it] = currentBasin } } // strip out the neighbor height and add neighbor to basin map
             .map { explore(grid, basinMap, currentBasin, it) } // explore!
     }
