@@ -145,6 +145,23 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
     fun taxiDistance(to: Coord): Int = abs(to.x - x) + abs(to.y - y)
 }
 
+/**
+ * Extension of getOrNull that returns the input row and col as a Coord, along with the item if found
+ */
+fun <T> List<List<T>>.getCoordOrNull(row: Int, col: Int): Pair<Coord, T>? =
+    getOrNull(row, col)?.let { Pair(Coord(col, row), it) }
+
+/**
+ * Extension of neighbors that returns the neighbors as a Coord along with the item if found
+ */
+fun <T> List<List<T>>.neighborCoords(row: Int, col: Int): List<Pair<Coord, T>> =
+    listOfNotNull(
+        getCoordOrNull(row - 1, col),
+        getCoordOrNull(row + 1, col),
+        getCoordOrNull(row, col - 1),
+        getCoordOrNull(row, col + 1)
+    )
+
 fun Pair<Coord, Coord>.contains(c: Coord): Boolean {
     val xs = listOf(first.x, second.x).sorted()
     val ys = listOf(first.y, second.y).sorted()

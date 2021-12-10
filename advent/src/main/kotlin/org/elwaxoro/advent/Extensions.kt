@@ -58,3 +58,25 @@ fun List<Int>.median(): Double = sorted().let {
         it[size / 2].toDouble()
     }
 }
+
+/**
+ * Get the item at the given indexes, returning null if out of bounds of the lists
+ */
+fun <T> List<List<T>>.getOrNull(row: Int, col: Int): T? =
+    if (row < 0 || row >= size || col < 0 || col >= this[row].size) {
+        null
+    } else {
+        this[row][col]
+    }
+
+/**
+ * Return items in list of lists above, below, left, right of given indexes
+ * Excludes out of bounds coordinates
+ */
+fun <T> List<List<T>>.neighbors(row: Int, col: Int): List<T> =
+    listOfNotNull(
+        getOrNull(row - 1, col),
+        getOrNull(row + 1, col),
+        getOrNull(row, col - 1),
+        getOrNull(row, col + 1)
+    )
