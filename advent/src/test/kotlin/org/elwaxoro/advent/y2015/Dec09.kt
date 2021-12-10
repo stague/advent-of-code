@@ -7,35 +7,28 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec09 : PuzzleDayTester(9, 2015) {
 
-    override fun puzzle1(): Any = explore(min = true)
+    override fun puzzle1(): Any = explore(::minPath, ::minCost)
 
-    override fun puzzle2(): Any = explore(min = false)
+    override fun puzzle2(): Any = explore(::maxPath, ::maxCost)
 
-    private fun explore(min: Boolean): Int = parse().let { nodes ->
-        nodes.map {
-            flail(listOf(it), nodes.minus(it), min)
-        }.let {
-            if (min) {
-                it.minOf { it.cost() }
-            } else {
-                it.maxOf { it.cost() }
-            }
-        }
+    private fun minCost(nodes: List<List<Node>>): Int = nodes.minOf { it.cost() }
+    private fun maxCost(nodes: List<List<Node>>): Int = nodes.maxOf { it.cost() }
+    private fun minPath(nodes: List<List<Node>>): List<Node> = nodes.minByOrNull { it.cost() }!!
+    private fun maxPath(nodes: List<List<Node>>): List<Node> = nodes.maxByOrNull { it.cost() }!!
+
+    private fun explore(bestPathFinder: (nodes: List<List<Node>>) -> List<Node>, costFunction: (nodes: List<List<Node>>) -> Int): Int = parse().let { nodes ->
+        costFunction(nodes.map {
+            flail(listOf(it), nodes.minus(it), bestPathFinder)
+        })
     }
 
-    private fun flail(visited: List<Node>, remaining: List<Node>, min: Boolean): List<Node> =
+    private fun flail(visited: List<Node>, remaining: List<Node>, bestPathFinder: (nodes: List<List<Node>>) -> List<Node>): List<Node> =
         if (remaining.isEmpty()) {
             visited
         } else {
-            remaining.map {
-                flail(visited.plus(it), remaining.minus(it), min)
-            }.let {
-                if (min) {
-                    it.minByOrNull { it.cost() }!!
-                } else {
-                    it.maxByOrNull { it.cost() }!!
-                }
-            }
+            bestPathFinder(remaining.map {
+                flail(visited.plus(it), remaining.minus(it), bestPathFinder)
+            })
         }
 
     private fun parse(): List<Node> = mutableMapOf<String, Node>().also { map ->
