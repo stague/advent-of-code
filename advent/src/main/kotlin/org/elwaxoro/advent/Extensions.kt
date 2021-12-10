@@ -61,6 +61,7 @@ fun List<Int>.median(): Double = sorted().let {
 
 /**
  * Get the item at the given indexes, returning null if out of bounds of the lists
+ * IMPORTANT! if thinking of the list of lists as a coordinate grid, row = y and col = x
  */
 fun <T> List<List<T>>.getOrNull(row: Int, col: Int): T? =
     if (row < 0 || row >= size || col < 0 || col >= this[row].size) {
@@ -72,6 +73,7 @@ fun <T> List<List<T>>.getOrNull(row: Int, col: Int): T? =
 /**
  * Return items in list of lists above, below, left, right of given indexes
  * Excludes out of bounds coordinates
+ * IMPORTANT! if thinking of the list of lists as a coordinate grid, row = y and col = x
  */
 fun <T> List<List<T>>.neighbors(row: Int, col: Int): List<T> =
     listOfNotNull(

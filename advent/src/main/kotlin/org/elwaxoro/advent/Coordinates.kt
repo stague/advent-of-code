@@ -147,12 +147,14 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
 
 /**
  * Extension of getOrNull that returns the input row and col as a Coord, along with the item if found
+ * IMPORTANT! if thinking of the list of lists as a coordinate grid, row = y and col = x
  */
 fun <T> List<List<T>>.getCoordOrNull(row: Int, col: Int): Pair<Coord, T>? =
     getOrNull(row, col)?.let { Pair(Coord(col, row), it) }
 
 /**
  * Extension of neighbors that returns the neighbors as a Coord along with the item if found
+ * IMPORTANT! if thinking of the list of lists as a coordinate grid, row = y and col = x
  */
 fun <T> List<List<T>>.neighborCoords(row: Int, col: Int): List<Pair<Coord, T>> =
     listOfNotNull(
@@ -162,6 +164,9 @@ fun <T> List<List<T>>.neighborCoords(row: Int, col: Int): List<Pair<Coord, T>> =
         getCoordOrNull(row, col + 1)
     )
 
+/**
+ * Returns true if given coord is contained by the rectangle formed by the pair of coordinates
+ */
 fun Pair<Coord, Coord>.contains(c: Coord): Boolean {
     val xs = listOf(first.x, second.x).sorted()
     val ys = listOf(first.y, second.y).sorted()
