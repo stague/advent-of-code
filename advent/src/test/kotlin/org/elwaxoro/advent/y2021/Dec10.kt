@@ -31,7 +31,7 @@ class Dec10 : PuzzleDayTester(10, 2021) {
         }
     }
 
-    private fun List<Syntax>.scoreIncomplete(): Long = reversed().map { it.getMatch().incompleteScore }.fold(0L) { acc, closer -> (acc * 5L) + closer }
+    private fun List<Syntax>.scoreIncomplete(): Long = reversed().map { it.getMatch().incompleteScore }.fold(0L) { acc, char -> (acc * 5L) + char }
 
     enum class Syntax(val char: Char, val corruptScore: Long = 0, val incompleteScore: Long = 0) {
         OPEN_PAREN('('),
