@@ -2,6 +2,9 @@ package org.elwaxoro.advent.y2015
 
 import org.elwaxoro.advent.PuzzleDayTester
 
+/**
+ * Elves Look, Elves Say
+ */
 class Dec10 : PuzzleDayTester(10, 2015) {
 
     override fun puzzle1(): Any = (1..40).fold("3113322113") { acc, _ ->
