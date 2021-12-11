@@ -156,12 +156,16 @@ fun <T> List<List<T>>.getCoordOrNull(row: Int, col: Int): Pair<Coord, T>? =
  * Extension of neighbors that returns the neighbors as a Coord along with the item if found
  * IMPORTANT! if thinking of the list of lists as a coordinate grid, row = y and col = x
  */
-fun <T> List<List<T>>.neighborCoords(row: Int, col: Int): List<Pair<Coord, T>> =
+fun <T> List<List<T>>.neighborCoords(row: Int, col: Int, includeDiagonal: Boolean = false): List<Pair<Coord, T>> =
     listOfNotNull(
         getCoordOrNull(row - 1, col),
         getCoordOrNull(row + 1, col),
         getCoordOrNull(row, col - 1),
-        getCoordOrNull(row, col + 1)
+        getCoordOrNull(row, col + 1),
+        getCoordOrNull(row - 1, col - 1).takeIf { includeDiagonal },
+        getCoordOrNull(row - 1, col + 1).takeIf { includeDiagonal },
+        getCoordOrNull(row + 1, col - 1).takeIf { includeDiagonal },
+        getCoordOrNull(row + 1, col + 1).takeIf { includeDiagonal },
     )
 
 /**
