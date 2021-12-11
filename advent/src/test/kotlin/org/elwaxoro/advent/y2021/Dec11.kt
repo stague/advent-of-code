@@ -27,7 +27,7 @@ class Dec11 : PuzzleDayTester(11, 2021) {
         }
     }
 
-    private fun List<MutableList<Int>>.incAndFlash(y: Int, x: Int): List<MutableList<Int>> = this.also {
+    private fun List<MutableList<Int>>.incAndFlash(y: Int, x: Int) {
         if (this[y][x] >= 0) { // octopus has not flashed this round
             this[y][x]++ // MOAR POWER
             if (this[y][x] > 9) { // BOOM
