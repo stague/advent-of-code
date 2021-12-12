@@ -27,11 +27,11 @@ class Dec12 : PuzzleDayTester(12, 2021) {
                 if (!it.canVisit) {
                     null // start can never be re-visited
                 } else if (it.canRevisit || !it.canLeave || !path.contains(it)) {
-                    flail(it, specialSmallCave, path.plus(it)) // capital letters, the exit, and un-visited small letters
+                    flail(it, specialSmallCave, path.plus(it)) // big caves, the exit, and un-visited small caves
                 } else if (specialSmallCave == null) {
-                    flail(it, it, path.plus(it)) // visited small letter, but the special small cave is available for a second visit
+                    flail(it, it, path.plus(it)) // already visited small cave, but the special small cave is available for a second visit
                 } else {
-                    null // this node is a small letter that has already been visited (or twice for special small cave)
+                    null // small cave that has already been visited (or twice for special small cave)
                 }
             }.flatten().map {
                 path.plus(it) // create the entire path by adding the existing path to this new section
