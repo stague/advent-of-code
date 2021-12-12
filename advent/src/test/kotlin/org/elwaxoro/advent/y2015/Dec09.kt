@@ -1,5 +1,6 @@
 package org.elwaxoro.advent.y2015
 
+import org.elwaxoro.advent.Node
 import org.elwaxoro.advent.PuzzleDayTester
 
 /**
@@ -48,15 +49,5 @@ class Dec09 : PuzzleDayTester(9, 2015) {
     }.values.toList()
 
     private fun List<Node>.cost(): Int = zipWithNext { a, b -> a.cost(b) }.sum()
-
-    data class Node(val name: String) {
-        val edges = mutableMapOf<Node, Int>()
-
-        fun cost(node: Node): Int = edges[node]!!
-
-        fun addEdge(node: Node, cost: Int) {
-            edges[node] = cost
-        }
-    }
 }
 
