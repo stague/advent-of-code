@@ -20,13 +20,13 @@ class Dec12 : PuzzleDayTester(12, 2021) {
     }
 
     private fun flail(current: Node, specialSmallCave: Node?, path: List<Node>): List<List<Node>> =
-        if (!current.canExit) {
+        if (!current.canLeave) {
             listOf(path) // exit found, nowhere else to go!
         } else {
             current.nodes.mapNotNull {
-                if (!it.canEnter) {
+                if (!it.canVisit) {
                     null // start can never be re-visited
-                } else if (it.canRevisit || !it.canExit || !path.contains(it)) {
+                } else if (it.canRevisit || !it.canLeave || !path.contains(it)) {
                     flail(it, specialSmallCave, path.plus(it)) // capital letters, the exit, and un-visited small letters
                 } else if (specialSmallCave == null) {
                     flail(it, it, path.plus(it)) // visited small letter, but the special small cave is available for a second visit
@@ -50,5 +50,5 @@ class Dec12 : PuzzleDayTester(12, 2021) {
         }
     }
 
-    private fun Map<String, Node>.getOrDefaultNode(name: String): Node = getOrDefault(name, Node(name, canEnter = name != "start", canExit = name != "end", canRevisit = name.matches(Regex("[A-Z]+"))))
+    private fun Map<String, Node>.getOrDefaultNode(name: String): Node = getOrDefault(name, Node(name, canVisit = name != "start", canLeave = name != "end", canRevisit = name.matches(Regex("[A-Z]+"))))
 }
