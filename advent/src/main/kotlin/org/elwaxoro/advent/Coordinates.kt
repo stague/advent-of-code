@@ -76,8 +76,11 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
             Dir.W -> Coord(x - distance, y)
         }
 
-    fun translate(dxy: Coord): Coord =
+    fun add(dxy: Coord): Coord =
         Coord(x + dxy.x, y + dxy.y)
+
+    fun subtract(dxy: Coord): Coord =
+        Coord(x - dxy.x, y - dxy.y)
 
     fun neighbors(): List<Coord> =
         Dir.values().map { move(it) }
