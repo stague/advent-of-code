@@ -3,6 +3,9 @@ package org.elwaxoro.advent.y2021
 import org.elwaxoro.advent.Coord
 import org.elwaxoro.advent.PuzzleDayTester
 
+/**
+ * Transparent Origami
+ */
 class Dec13 : PuzzleDayTester(13, 2021) {
 
     override fun puzzle1(): Any = parse().let { (coords, folds) ->
