@@ -7,6 +7,9 @@ import org.elwaxoro.advent.findBestPath
 import org.elwaxoro.advent.maxCost
 import org.elwaxoro.advent.maxPath
 
+/**
+ * Knights of the Dinner Table
+ */
 class Dec13: PuzzleDayTester(13, 2015) {
     override fun puzzle1(): Any = findBestPath(parse(), connectLoop = true, ::maxPath, ::maxCost)
 
