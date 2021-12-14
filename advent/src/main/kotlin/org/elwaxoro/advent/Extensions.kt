@@ -82,3 +82,16 @@ fun <T> List<List<T>>.neighbors(row: Int, col: Int): List<T> =
         getOrNull(row, col - 1),
         getOrNull(row, col + 1)
     )
+
+/**
+ * Merge a list of maps by adding up values for matching keys
+ */
+fun <T, U> List<Map<T, U>>.merge(merger: (value: U, existing: U?) -> U): Map<T, U> = fold(mutableMapOf()) { acc, map ->
+    acc.also {
+        map.entries.map { (key, value) ->
+            acc[key] = merger(value, acc[key])
+        }
+    }
+}
+
+fun Long.plusNull(that: Long?): Long = (that ?: 0L) + this
