@@ -2,35 +2,20 @@ package org.elwaxoro.advent.y2015
 
 import org.elwaxoro.advent.Node
 import org.elwaxoro.advent.PuzzleDayTester
+import org.elwaxoro.advent.findBestPath
+import org.elwaxoro.advent.maxCost
+import org.elwaxoro.advent.maxPath
+import org.elwaxoro.advent.minCost
+import org.elwaxoro.advent.minPath
 
 /**
  * All in a Single Night
  */
 class Dec09 : PuzzleDayTester(9, 2015) {
 
-    override fun puzzle1(): Any = explore(::minPath, ::minCost)
+    override fun puzzle1(): Any = findBestPath(parse(), connectLoop = false, ::minPath, ::minCost)
 
-    override fun puzzle2(): Any = explore(::maxPath, ::maxCost)
-
-    private fun minCost(nodes: List<List<Node>>): Int = nodes.minOf { it.cost() }
-    private fun maxCost(nodes: List<List<Node>>): Int = nodes.maxOf { it.cost() }
-    private fun minPath(nodes: List<List<Node>>): List<Node> = nodes.minByOrNull { it.cost() }!!
-    private fun maxPath(nodes: List<List<Node>>): List<Node> = nodes.maxByOrNull { it.cost() }!!
-
-    private fun explore(bestPathFinder: (nodes: List<List<Node>>) -> List<Node>, costFunction: (nodes: List<List<Node>>) -> Int): Int = parse().let { nodes ->
-        costFunction(nodes.map {
-            flail(listOf(it), nodes.minus(it), bestPathFinder)
-        })
-    }
-
-    private fun flail(visited: List<Node>, remaining: List<Node>, bestPathFinder: (nodes: List<List<Node>>) -> List<Node>): List<Node> =
-        if (remaining.isEmpty()) {
-            visited
-        } else {
-            bestPathFinder(remaining.map {
-                flail(visited.plus(it), remaining.minus(it), bestPathFinder)
-            })
-        }
+    override fun puzzle2(): Any = findBestPath(parse(), connectLoop = false, ::maxPath, ::maxCost)
 
     private fun parse(): List<Node> = mutableMapOf<String, Node>().also { map ->
         load().let { lines ->
@@ -47,7 +32,4 @@ class Dec09 : PuzzleDayTester(9, 2015) {
             }
         }
     }.values.toList()
-
-    private fun List<Node>.cost(): Int = zipWithNext { a, b -> a.cost(b) }.sum()
 }
-
