@@ -49,13 +49,13 @@ data class Node(
     }
 
     /**
-     * If the given node's path and its cost from there to here is better than what's here already,
+     * If (other's shortest path + cost there to here) is better than this node's shortest path,
      * replace this node's shortest path stuff
      */
-    private fun calculateMinimumDistance(node: Node) {
-        (node.shortestDistance + cost(node)).takeIf { it < shortestDistance }?.let { newShorterDistance ->
+    private fun calculateMinimumDistance(other: Node) {
+        (other.shortestDistance + cost(other)).takeIf { it < shortestDistance }?.let { newShorterDistance ->
             shortestDistance = newShorterDistance
-            shortestPathToSource = node.shortestPathToSource + node
+            shortestPathToSource = other.shortestPathToSource + other
         }
     }
 }
