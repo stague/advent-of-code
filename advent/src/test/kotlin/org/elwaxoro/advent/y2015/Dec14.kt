@@ -43,7 +43,7 @@ class Dec14 : PuzzleDayTester(14, 2015) {
         fun distanceTraveled(time: Long): Long {
             val wholeChunks = (time / totalTime)
             val wholeChunkDistance = wholeChunks * (speed * flightTime)
-            val remainingChunk = (time - (wholeChunks * totalTime)) % totalTime
+            val remainingChunk = time - (wholeChunks * totalTime)
             val remainingFlyable = min(remainingChunk, flightTime)
             val remainingDistance = remainingFlyable * speed
             return wholeChunkDistance + remainingDistance
