@@ -37,20 +37,25 @@ data class Node(
         unsettled.add(this)
 
         while (unsettled.isNotEmpty()) {
-            val current = unsettled.minByOrNull { it.shortestDistance }!!
-            unsettled.remove(current)
-            current.nodes.filterNot { settled.contains(it) }.forEach { neighbor ->
-                neighbor.calculateMinimumDistance(current)
-                unsettled.add(neighbor)
+            unsettled.minByOrNull { it.shortestDistance }!!.let { node ->
+                unsettled.remove(node)
+                settled.add(node)
+                node.nodes.filterNot { settled.contains(it) }.forEach { neighbor ->
+                    neighbor.calculateMinimumDistance(node)
+                    unsettled.add(neighbor)
+                }
             }
-            settled.add(current)
         }
     }
 
-    private fun calculateMinimumDistance(source: Node) {
-        (source.shortestDistance + cost(source)).takeIf { it < shortestDistance }?.let { newShorterDistance ->
+    /**
+     * If the given node's path and its cost from there to here is better than what's here already,
+     * replace this node's shortest path stuff
+     */
+    private fun calculateMinimumDistance(node: Node) {
+        (node.shortestDistance + cost(node)).takeIf { it < shortestDistance }?.let { newShorterDistance ->
             shortestDistance = newShorterDistance
-            shortestPathToSource = source.shortestPathToSource + source
+            shortestPathToSource = node.shortestPathToSource + node
         }
     }
 }
