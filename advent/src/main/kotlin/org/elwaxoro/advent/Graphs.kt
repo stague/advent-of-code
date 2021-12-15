@@ -28,6 +28,7 @@ data class Node(
     /**
      * Dijkstra it up!
      * This call populates this node and all connected nodes with the shortest path from this node to all other connected nodes
+     * DANGER: this is a mutating call so will only really work once for all nodes involved
      */
     fun dijkstra() {
         shortestDistance = 0
