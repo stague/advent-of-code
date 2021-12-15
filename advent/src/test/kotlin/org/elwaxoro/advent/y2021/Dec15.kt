@@ -16,6 +16,7 @@ class Dec15 : PuzzleDayTester(15, 2021) {
     override fun puzzle2(): Any = parse(reps = 5).cornerToCornerCost()
 
     private fun List<List<Node>>.cornerToCornerCost(): Int {
+        // https://github.com/elwaxoro/advent-of-code/blob/main/advent/src/main/kotlin/org/elwaxoro/advent/Graphs.kt#L33
         this[0][0].dijkstra()
         // because I'm dumb and insisted on reusing existing code that wasn't a perfect fit,
         // the shortest path (and cost) includes the start node but not the end
