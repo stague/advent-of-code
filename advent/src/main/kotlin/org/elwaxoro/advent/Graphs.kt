@@ -37,22 +37,23 @@ data class Node(
         unsettled.add(this)
 
         while (unsettled.isNotEmpty()) {
+            // always work on the shortest path first
             unsettled.minByOrNull { it.shortestDistance }!!.let { node ->
-                unsettled.remove(node)
-                settled.add(node)
-                node.nodes.filterNot { settled.contains(it) }.forEach { neighbor ->
-                    neighbor.calculateMinimumDistance(node)
-                    unsettled.add(neighbor)
-                }
+                // node goes from unsettled to settled
+                settled.add(unsettled.delete(node))
+                // all neighbors not already settled update their distances and go in the unsettled pile
+                unsettled.addAll(node.nodes.filterNot { settled.contains(it) }.map { it.calculateMinimumDistance(node) })
             }
         }
     }
+
+    private fun MutableSet<Node>.delete(node: Node): Node = node.also { remove(node) }
 
     /**
      * If (other's shortest path + cost there to here) is better than this node's shortest path,
      * replace this node's shortest path stuff
      */
-    private fun calculateMinimumDistance(other: Node) {
+    private fun calculateMinimumDistance(other: Node): Node = this.also {
         (other.shortestDistance + cost(other)).takeIf { it < shortestDistance }?.let { newShorterDistance ->
             shortestDistance = newShorterDistance
             shortestPathToSource = other.shortestPathToSource + other
