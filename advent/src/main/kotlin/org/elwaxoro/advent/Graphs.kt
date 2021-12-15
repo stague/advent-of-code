@@ -11,7 +11,7 @@ data class Node(
     val nodes = mutableListOf<Node>()
 
     // helpers for dijkstra
-    var shortestPathToSource = listOf<Node>()
+    var shortestPath = listOf<Node>()
     var shortestDistance: Int = Int.MAX_VALUE
 
     override fun toString(): String = name
@@ -56,7 +56,7 @@ data class Node(
     private fun calculateMinimumDistance(other: Node): Node = this.also {
         (other.shortestDistance + cost(other)).takeIf { it < shortestDistance }?.let { newShorterDistance ->
             shortestDistance = newShorterDistance
-            shortestPathToSource = other.shortestPathToSource + other
+            shortestPath = other.shortestPath + other
         }
     }
 }

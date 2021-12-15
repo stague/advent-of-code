@@ -22,7 +22,7 @@ class Dec15 : PuzzleDayTester(15, 2021) {
         // the shortest path (and cost) includes the start node but not the end
         // it works, so I'm just leaving it - but the true cost must be recalculated:
         val end = this[size - 1][size - 1]
-        return (end.shortestPathToSource + end).cost()
+        return (end.shortestPath + end).cost()
     }
 
     fun parse(reps: Int = 1): List<List<Node>> = load().map { it.splitToInt() }.getSwole(reps).let { grid ->
