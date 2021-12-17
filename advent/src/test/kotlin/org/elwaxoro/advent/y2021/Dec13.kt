@@ -2,6 +2,7 @@ package org.elwaxoro.advent.y2021
 
 import org.elwaxoro.advent.Coord
 import org.elwaxoro.advent.PuzzleDayTester
+import org.elwaxoro.advent.printify
 
 /**
  * Transparent Origami
@@ -15,7 +16,7 @@ class Dec13 : PuzzleDayTester(13, 2021) {
     override fun puzzle2(): Any = parse().let { (coords, folds) ->
         "\n\n" + folds.fold(coords) { acc, fold ->
             acc.foldPaper(fold)
-        }.printify()
+        }.printify(empty = ' ')
     }
 
     private fun List<Coord>.foldPaper(fold: Coord): List<Coord> = map { coord ->
@@ -24,17 +25,6 @@ class Dec13 : PuzzleDayTester(13, 2021) {
             (2 * fold.y - coord.y).takeIf { fold.y > 0 && coord.y > fold.y } ?: coord.y
         )
     }.distinct()
-
-    private fun List<Coord>.printify(): String =
-        (0..maxByOrNull { it.y }!!.y).map {
-            MutableList(maxByOrNull { it.x }!!.x + 1) { ' ' }
-        }.also { screen ->
-            forEach { coord ->
-                screen[coord.y][coord.x] = '#'
-            }
-        }.joinToString("\n") {
-            it.joinToString("")
-        }
 
     private fun parse(): Pair<List<Coord>, List<Coord>> = load(delimiter = "\n\n").let { (rawCoords, rawFolds) ->
         val coords = rawCoords.split("\n").map(Coord::parse)
