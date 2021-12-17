@@ -56,8 +56,7 @@ enum class Turn {
 /**
  * 2D coordinate
  */
-data class Coord(val x: Int = 0, val y: Int = 0) {
-
+data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
     companion object {
         /**
          * "x,y" string to coord
@@ -67,19 +66,24 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
         }
     }
 
+    override fun toString(): String = "($x,$y)"
+
     fun move(dir: Dir, distance: Int = 1): Coord =
         when (dir) {
-            Dir.N -> Coord(x, y + distance)
-            Dir.S -> Coord(x, y - distance)
-            Dir.E -> Coord(x + distance, y)
-            Dir.W -> Coord(x - distance, y)
+            Dir.N -> Coord(x, y + distance, d)
+            Dir.S -> Coord(x, y - distance, d)
+            Dir.E -> Coord(x + distance, y, d)
+            Dir.W -> Coord(x - distance, y, d)
         }
 
+    fun add(dx: Int, dy: Int): Coord =
+        Coord(x + dx, y + dy, d)
+
     fun add(dxy: Coord): Coord =
-        Coord(x + dxy.x, y + dxy.y)
+        Coord(x + dxy.x, y + dxy.y, d)
 
     fun subtract(dxy: Coord): Coord =
-        Coord(x - dxy.x, y - dxy.y)
+        Coord(x - dxy.x, y - dxy.y, d)
 
     fun neighbors(): List<Coord> =
         Dir.values().map { move(it) }
@@ -104,9 +108,9 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
     fun rotate(rotation: Int): Coord =
         when (rotation) {
             0 -> this
-            90 -> Coord(y, x * -1)
-            180 -> Coord(x * -1, y * -1)
-            270 -> Coord(y * -1, x)
+            90 -> Coord(y, x * -1, d)
+            180 -> Coord(x * -1, y * -1, d)
+            270 -> Coord(y * -1, x, d)
             else -> throw IllegalStateException("Coord $this does not support rotation $rotation")
         }
 
@@ -120,7 +124,7 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
         val ys = listOf(y, toCoord.y).sorted()
         return (xs[0]..xs[1]).map { mx ->
             (ys[0]..ys[1]).map { my ->
-                Coord(mx, my)
+                Coord(mx, my, d)
             }
         }.flatten()
     }
@@ -132,7 +136,7 @@ data class Coord(val x: Int = 0, val y: Int = 0) {
     fun enumerateLine(toCoord: Coord): List<Coord> =
         (abs(x -toCoord.x) + 1 to abs(y - toCoord.y) + 1).let { (dx, dy) ->
             x.toward(toCoord.x).padTo(dy).zip(y.toward(toCoord.y).padTo(dx)).map { (x, y) ->
-                Coord(x, y)
+                Coord(x, y, d)
             }
         }
 
@@ -177,6 +181,28 @@ fun Pair<Coord, Coord>.contains(c: Coord): Boolean {
     val xs = listOf(first.x, second.x).sorted()
     val ys = listOf(first.y, second.y).sorted()
     return c.x >= xs.first() && c.x <= xs.last() && c.y >= ys.first() && c.y <= ys.last()
+}
+
+fun List<Coord>.printify(full: Char = '#', empty: Char = '.', invert: Boolean = false): String {
+    val xs = map { it.x }.sorted()
+    val ys = map { it.y }.sorted()
+    val xtranslate = 0 - xs.first()
+    val ytranslate = 0 - ys.first()
+
+    return "[${xs.first()},${ys.first()}] to [${xs.last()},${ys.last()}]\n"+
+    (0..(ys.last() - ys.first())).map {
+        MutableList(xs.last() - xs.first() + 1) { empty }
+    }.also { screen ->
+        forEach { coord ->
+            screen[coord.y + ytranslate][coord.x + xtranslate] = coord.d ?: full
+        }
+    }.let {
+        if(invert) {
+            it.reversed()
+        } else {
+            it
+        }
+    }.joinToString("\n") { it.joinToString("") }
 }
 
 enum class HexDir { E, W, NE, NW, SE, SW }
