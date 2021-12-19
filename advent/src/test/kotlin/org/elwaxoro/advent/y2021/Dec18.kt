@@ -4,6 +4,9 @@ import org.elwaxoro.advent.PuzzleDayTester
 import java.util.UUID
 import kotlin.math.ceil
 
+/**
+ * Snailfish
+ */
 class Dec18 : PuzzleDayTester(18, 2021) {
 
     override fun puzzle1(): Any = load().map { it.parseSnode() }.reduce { acc, snode ->
