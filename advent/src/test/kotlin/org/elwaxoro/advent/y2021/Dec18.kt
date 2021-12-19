@@ -112,6 +112,9 @@ class Dec18 : PuzzleDayTester(18, 2021) {
                 throw IllegalStateException("Tried to add $snode to $this but left and right are full already")
             }
 
+        /**
+         * Binary tree traversal stuffs (left)
+         */
         fun traverseLeft(): SNode? = parent?.let { parent ->
             if (this == parent.left) {
                 parent.traverseLeft()
@@ -120,6 +123,9 @@ class Dec18 : PuzzleDayTester(18, 2021) {
             }
         }
 
+        /**
+         * Binary tree traversal stuffs (right)
+         */
         fun traverseRight(): SNode? = parent?.let { parent ->
             if (this == parent.right) {
                 parent.traverseRight()
