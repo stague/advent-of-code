@@ -23,7 +23,7 @@ class Dec18 : PuzzleDayTester(18, 2021) {
     }
 
     /**
-     * Trust me, everything just works better if we drop the leading '[' and pretend like that
+     * Trust me, everything just works better if we drop the leading '[' and pretend like that is normal
      */
     private fun String.parseSnode() = parser(drop(1))
 
