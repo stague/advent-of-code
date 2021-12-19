@@ -8,7 +8,7 @@ import kotlin.math.abs
  */
 class Dec19 : PuzzleDayTester(19, 2021) {
 
-    override fun puzzle1(): Any = parse().alignTheScanners().map { it.beacons }.flatten().toSet().size
+    override fun puzzle1(): Any = parse().alignTheScanners().map { it.beacons }.flatten().toSet().size == 512
 
     override fun puzzle2(): Any = parse().alignTheScanners().map { it.translation }.let { translations ->
         translations.maxOf { a ->
@@ -16,7 +16,7 @@ class Dec19 : PuzzleDayTester(19, 2021) {
                 a.manhattan(b)
             }
         }
-    }
+    } == 16802
 
     /**
      * Loop unaligned scanners until everyone is aligned
@@ -47,7 +47,7 @@ class Dec19 : PuzzleDayTester(19, 2021) {
 data class Scanner(val name: Int, val beacons: List<Coord3D>, val translation: Coord3D = Coord3D()) {
     private val beaconDistanceMap: Map<Int, Pair<Coord3D, Coord3D>> = beacons.map { a ->
         beacons.minus(a).map { b ->
-            a.squared(b) to Pair(a, b)
+            a.manhattan(b) to Pair(a, b)
         }
     }.flatten().distinctBy { it.first }.toMap()
 
@@ -86,11 +86,7 @@ data class Coord3D(val x: Int = 0, val y: Int = 0, val z: Int = 0, val w: Int = 
             Coord3D(a.toInt(), b.toInt(), c.toInt())
         }
     }
-
     fun subtract(that: Coord3D): Coord3D = Coord3D(x - that.x, y - that.y, z - that.z)
-    fun squared(that: Coord3D): Int =
-        (x - that.x) * (x - that.x) + (y - that.y) * (y - that.y) + (z - that.z) * (z - that.z)
-
     fun manhattan(that: Coord3D): Int = abs(x - that.x) + abs(y - that.y) + abs(z - that.z)
     fun toMatrix(): Matrix4 = Matrix4(
         1, 0, 0, x,
