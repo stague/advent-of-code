@@ -56,7 +56,7 @@ class Dec18 : PuzzleDayTester(18, 2021) {
         var left: SNode? = null,
         var right: SNode? = null,
         var num: Long? = null,
-        val id: UUID = UUID.randomUUID(),
+        val id: UUID = UUID.randomUUID(), // I broke .equals because dumb. This is a workaround
     ) {
         fun isLiteral(): Boolean = num != null
         fun isPair(): Boolean = left != null && right != null && left!!.isLiteral() && right!!.isLiteral()
