@@ -26,10 +26,10 @@ class Dec20 : PuzzleDayTester(20, 2021) {
      * Use isOobLit to decide if coords outside the (non-expanded) bounds are lit or not
      */
     private fun glowUp(algorithm: String, litCoords: Set<Coord>, isOobLit: Boolean): Set<Coord> =
-        litCoords.bounds().let { bounds ->
-            (bounds.first.y - 1..bounds.second.y + 1).map { y ->
-                (bounds.first.x - 1..bounds.second.x + 1).mapNotNull { x ->
-                    Coord(x, y).takeIf { algorithm[it.calcNumber(bounds, litCoords, isOobLit)] == '#'}
+        litCoords.bounds().let { (min, max) ->
+            (min.y - 1..max.y + 1).map { y ->
+                (min.x - 1..max.x + 1).mapNotNull { x ->
+                    Coord(x, y).takeIf { algorithm[it.calcNumber(min to max, litCoords, isOobLit)] == '#'}
                 }
             }.flatten().toSet()
         }
