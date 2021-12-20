@@ -14,6 +14,7 @@ class Dec20 : PuzzleDayTester(20, 2021) {
 
     /**
      * OOB coords swap from all '.' to all '#' every other iteration
+     * Track only the lit coords from round to round
      */
     private fun glowUpLikeALot(reps: Int): Set<Coord> = parse().let { (algorithm, litCoords) ->
         (0 until reps).fold(litCoords) { acc, i ->
