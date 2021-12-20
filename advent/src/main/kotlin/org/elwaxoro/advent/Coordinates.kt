@@ -88,6 +88,16 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
     fun neighbors(): List<Coord> =
         Dir.values().map { move(it) }
 
+    /**
+     * Returns a 3x3 grid with all neighbor coords, including this coord at the center
+     */
+    fun neighbors9(): List<List<Coord>> =
+        listOf(
+            listOf(Coord(x - 1, y - 1), Coord(x, y - 1), Coord(x + 1, y - 1)),
+            listOf(Coord(x - 1, y), this, Coord(x + 1, y)),
+            listOf(Coord(x - 1, y + 1), Coord(x, y + 1), Coord(x + 1, y + 1))
+        )
+
     fun edge(that: Coord): Dir =
         if (x == that.x) {
             if (y == that.y - 1) {
@@ -134,7 +144,7 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
      * Only produces straight lines for vertical, horizontal, and 45deg lines
      */
     fun enumerateLine(toCoord: Coord): List<Coord> =
-        (abs(x -toCoord.x) + 1 to abs(y - toCoord.y) + 1).let { (dx, dy) ->
+        (abs(x - toCoord.x) + 1 to abs(y - toCoord.y) + 1).let { (dx, dy) ->
             x.toward(toCoord.x).padTo(dy).zip(y.toward(toCoord.y).padTo(dx)).map { (x, y) ->
                 Coord(x, y, d)
             }
@@ -183,26 +193,32 @@ fun Pair<Coord, Coord>.contains(c: Coord): Boolean {
     return c.x >= xs.first() && c.x <= xs.last() && c.y >= ys.first() && c.y <= ys.last()
 }
 
-fun List<Coord>.printify(full: Char = '#', empty: Char = '.', invert: Boolean = false): String {
+fun Collection<Coord>.bounds(): Pair<Coord, Coord> {
+    val xs = map { it.x }.sorted()
+    val ys = map { it.y }.sorted()
+    return (Coord(xs.first(), ys.first()) to Coord(xs.last(), ys.last()))
+}
+
+fun Collection<Coord>.printify(full: Char = '#', empty: Char = '.', invert: Boolean = false): String {
     val xs = map { it.x }.sorted()
     val ys = map { it.y }.sorted()
     val xtranslate = 0 - xs.first()
     val ytranslate = 0 - ys.first()
 
-    return "[${xs.first()},${ys.first()}] to [${xs.last()},${ys.last()}]\n"+
-    (0..(ys.last() - ys.first())).map {
-        MutableList(xs.last() - xs.first() + 1) { empty }
-    }.also { screen ->
-        forEach { coord ->
-            screen[coord.y + ytranslate][coord.x + xtranslate] = coord.d ?: full
-        }
-    }.let {
-        if(invert) {
-            it.reversed()
-        } else {
-            it
-        }
-    }.joinToString("\n") { it.joinToString("") }
+    return "[${xs.first()},${ys.first()}] to [${xs.last()},${ys.last()}]\n" +
+        (0..(ys.last() - ys.first())).map {
+            MutableList(xs.last() - xs.first() + 1) { empty }
+        }.also { screen ->
+            forEach { coord ->
+                screen[coord.y + ytranslate][coord.x + xtranslate] = coord.d ?: full
+            }
+        }.let {
+            if (invert) {
+                it.reversed()
+            } else {
+                it
+            }
+        }.joinToString("\n") { it.joinToString("") }
 }
 
 enum class HexDir { E, W, NE, NW, SE, SW }
@@ -224,4 +240,123 @@ data class Hex(val x: Int, val y: Int, val z: Int) {
         }
 
     fun neighbors(): List<Hex> = HexDir.values().map { move(it) }
+}
+
+/**
+ * The 'w' is for WTF
+ * Based on javax.vecmath.Tuple4d
+ */
+data class Coord3D(val x: Int = 0, val y: Int = 0, val z: Int = 0, val w: Int = 1) {
+    companion object {
+        fun parse(string: String): Coord3D = string.split(",").let { (a, b, c) ->
+            Coord3D(a.toInt(), b.toInt(), c.toInt())
+        }
+    }
+
+    fun subtract(that: Coord3D): Coord3D = Coord3D(x - that.x, y - that.y, z - that.z)
+    fun manhattan(that: Coord3D): Int = abs(x - that.x) + abs(y - that.y) + abs(z - that.z)
+    fun toMatrix(): Matrix4 = Matrix4(
+        1, 0, 0, x,
+        0, 1, 0, y,
+        0, 0, 1, z,
+        0, 0, 0, w
+    )
+}
+
+/**
+ * javax.vecmath.Matrix4f / javax.media.j3d.Transform3D
+ */
+data class Matrix4(
+    val m00: Int, val m10: Int, val m20: Int, val m30: Int,
+    val m01: Int, val m11: Int, val m21: Int, val m31: Int,
+    val m02: Int, val m12: Int, val m22: Int, val m32: Int,
+    val m03: Int, val m13: Int, val m23: Int, val m33: Int,
+) {
+    fun multiply(m: Matrix4): Matrix4 = Matrix4(
+        m00 * m.m00 + m10 * m.m01 + m20 * m.m02 + m30 * m.m03,
+        m00 * m.m10 + m10 * m.m11 + m20 * m.m12 + m30 * m.m13,
+        m00 * m.m20 + m10 * m.m21 + m20 * m.m22 + m30 * m.m23,
+        m00 * m.m30 + m10 * m.m31 + m20 * m.m32 + m30 * m.m33,
+
+        m01 * m.m00 + m11 * m.m01 + m21 * m.m02 + m31 * m.m03,
+        m01 * m.m10 + m11 * m.m11 + m21 * m.m12 + m31 * m.m13,
+        m01 * m.m20 + m11 * m.m21 + m21 * m.m22 + m31 * m.m23,
+        m01 * m.m30 + m11 * m.m31 + m21 * m.m32 + m31 * m.m33,
+
+        m02 * m.m00 + m12 * m.m01 + m22 * m.m02 + m32 * m.m03,
+        m02 * m.m10 + m12 * m.m11 + m22 * m.m12 + m32 * m.m13,
+        m02 * m.m20 + m12 * m.m21 + m22 * m.m22 + m32 * m.m23,
+        m02 * m.m30 + m12 * m.m31 + m22 * m.m32 + m32 * m.m33,
+
+        m03 * m.m00 + m13 * m.m01 + m23 * m.m02 + m33 * m.m03,
+        m03 * m.m10 + m13 * m.m11 + m23 * m.m12 + m33 * m.m13,
+        m03 * m.m20 + m13 * m.m21 + m23 * m.m22 + m33 * m.m23,
+        m03 * m.m30 + m13 * m.m31 + m23 * m.m32 + m33 * m.m33,
+    )
+
+    fun multiply(c: Coord3D): Coord3D = Coord3D(
+        m00 * c.x + m10 * c.y + m20 * c.z + m30 * 1,
+        m01 * c.x + m11 * c.y + m21 * c.z + m31 * 1,
+        m02 * c.x + m12 * c.y + m22 * c.z + m32 * 1,
+        m03 * c.x + m13 * c.y + m23 * c.z + m33 * 1,
+    )
+
+    override fun toString(): String =
+        """
+            $m00,$m10,$m20,$m30
+            $m01,$m11,$m21,$m31
+            $m02,$m12,$m22,$m32
+            $m03,$m13,$m23,$m33
+        """.trimIndent()
+}
+
+enum class Rotation4(val matrix: Matrix4) {
+    IDENTITY(
+        Matrix4(
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        )
+    ),
+    X90(
+        Matrix4(
+            1, 0, 0, 0,
+            0, 0, -1, 0,
+            0, 1, 0, 0,
+            0, 0, 0, 1
+        )
+    ),
+    Y90(
+        Matrix4(
+            0, 0, 1, 0,
+            0, 1, 0, 0,
+            -1, 0, 0, 0,
+            0, 0, 0, 1
+        )
+    ),
+    Z90(
+        Matrix4(
+            0, -1, 0, 0,
+            1, 0, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        )
+    );
+
+    companion object {
+        // This makes 64 rotations but only 24 of them are unique. That's called efficiency
+        fun allTheThings(): Set<Matrix4> =
+            (0..3).map { x ->
+                (0..3).map { y ->
+                    (0..3).map { z ->
+                        List(x) { X90.matrix } + List(y) { Y90.matrix } + List(z) { Z90.matrix }
+                    }
+                }.flatten()
+            }.flatten().filter { it.isNotEmpty() }.map {
+                it.reduce { acc, rotation4 ->
+                    acc.multiply(rotation4)
+                }
+            }.toSet()
+    }
 }
