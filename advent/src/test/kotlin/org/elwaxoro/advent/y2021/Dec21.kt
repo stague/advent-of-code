@@ -60,18 +60,18 @@ class Dec21 : PuzzleDayTester(21, 2021) {
         fun getWinner(): Int? = players.singleOrNull { it.score >= 21 }?.name
         fun swapPlayers() { players = players.reversed() }
 
-        fun endTurn() {
-            if (rolls >= 3) {
+        fun endTurn(newRolls: Long) {
+            rolls = newRolls
+            if (newRolls == 3L) {
                 rolls = 0
                 swapPlayers()
             }
         }
 
         fun roll(): List<GameV2> = (1L..3L).map {
-            GameV2(listOf(players.first().rollScore(it, rolls + 1 == 3L), players.last()))
-        }.onEach {
-            it.rolls = rolls + 1
-            it.endTurn()
+            GameV2(listOf(players.first().rollScore(it, rolls + 1 == 3L), players.last())).also {
+                it.endTurn(rolls + 1)
+            }
         }
     }
 }
