@@ -23,7 +23,7 @@ class Dec17 : PuzzleDayTester(17, 2021) {
             }
         }.flatten()
 
-    data class Probe(val pos: Coord, val velX: Int, val velY: Int) {
+    private data class Probe(val pos: Coord, val velX: Int, val velY: Int) {
         /**
          * Move the probe and update the velocity
          */
