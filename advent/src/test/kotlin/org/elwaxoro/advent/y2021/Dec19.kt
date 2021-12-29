@@ -9,7 +9,7 @@ import org.elwaxoro.advent.Rotation4
  */
 class Dec19 : PuzzleDayTester(19, 2021) {
 
-    override fun puzzle1(): Any = parse().alignTheScanners().map { it.beacons }.flatten().toSet().size == 512
+    override fun puzzle1(): Any = parse().alignTheScanners().map { it.beacons }.flatten().toSet().size
 
     override fun puzzle2(): Any = parse().alignTheScanners().map { it.translation }.let { translations ->
         translations.maxOf { a ->
@@ -17,7 +17,7 @@ class Dec19 : PuzzleDayTester(19, 2021) {
                 a.manhattan(b)
             }
         }
-    } == 16802
+    }
 
     /**
      * Loop unaligned scanners until everyone is aligned
@@ -43,36 +43,36 @@ class Dec19 : PuzzleDayTester(19, 2021) {
             Scanner(idx, it)
         }
     }
-}
 
-data class Scanner(val name: Int, val beacons: List<Coord3D>, val translation: Coord3D = Coord3D()) {
-    private val beaconDistanceMap: Map<Int, Pair<Coord3D, Coord3D>> = beacons.map { a ->
-        beacons.minus(a).map { b ->
-            a.manhattan(b) to Pair(a, b)
-        }
-    }.flatten().distinctBy { it.first }.toMap()
+    private data class Scanner(val name: Int, val beacons: List<Coord3D>, val translation: Coord3D = Coord3D()) {
+        private val beaconDistanceMap: Map<Int, Pair<Coord3D, Coord3D>> = beacons.map { a ->
+            beacons.minus(a).map { b ->
+                a.manhattan(b) to Pair(a, b)
+            }
+        }.flatten().distinctBy { it.first }.toMap()
 
-    fun align(anchor: Scanner): Scanner? =
-        (beaconDistanceMap.keys intersect anchor.beaconDistanceMap.keys).let { potentialBeacons ->
-            potentialBeacons.map { distance ->
-                val (a, b) = beaconDistanceMap[distance]!!
-                val (aa, ab) = anchor.beaconDistanceMap[distance]!!
-                // Difference vector everything by everything, take the best matrix if 12 or more beacons line up
-                Rotation4.allTheThings().mapNotNull { matrix ->
-                    val ra = matrix.multiply(a)
-                    val rb = matrix.multiply(b)
+        fun align(anchor: Scanner): Scanner? =
+            (beaconDistanceMap.keys intersect anchor.beaconDistanceMap.keys).let { potentialBeacons ->
+                potentialBeacons.map { distance ->
+                    val (a, b) = beaconDistanceMap[distance]!!
+                    val (aa, ab) = anchor.beaconDistanceMap[distance]!!
+                    // Difference vector everything by everything, take the best matrix if 12 or more beacons line up
+                    Rotation4.allTheThings().mapNotNull { matrix ->
+                        val ra = matrix.multiply(a)
+                        val rb = matrix.multiply(b)
 
-                    if (ra.subtract(aa) == rb.subtract(ab)) {
-                        aa.subtract(ra).toMatrix().multiply(matrix)
-                    } else if (rb.subtract(aa) == ra.subtract(ab)) {
-                        ab.subtract(ra).toMatrix().multiply(matrix)
-                    } else {
-                        null
+                        if (ra.subtract(aa) == rb.subtract(ab)) {
+                            aa.subtract(ra).toMatrix().multiply(matrix)
+                        } else if (rb.subtract(aa) == ra.subtract(ab)) {
+                            ab.subtract(ra).toMatrix().multiply(matrix)
+                        } else {
+                            null
+                        }
                     }
-                }
-            }.flatten().groupingBy { it }.eachCount().maxByOrNull { it.value }?.takeIf { it.value >= 12 }
-                ?.let { (matrix, _) ->
-                    Scanner(name, beacons.map { (matrix.multiply(it)) }, matrix.multiply(Coord3D()))
-                }
-        }
+                }.flatten().groupingBy { it }.eachCount().maxByOrNull { it.value }?.takeIf { it.value >= 12 }
+                    ?.let { (matrix, _) ->
+                        Scanner(name, beacons.map { (matrix.multiply(it)) }, matrix.multiply(Coord3D()))
+                    }
+            }
+    }
 }
