@@ -62,7 +62,7 @@ class Dec16 : PuzzleDayTester(16, 2021) {
             packet to substring(packet.calcLength())
         }
 
-    data class Packet(val version: Int, val type: Int) {
+    private data class Packet(val version: Int, val type: Int) {
         var value: Long = -1 // if packet is a literal, this is set
         var lengthBits: Int = 6 // how long is this thing anyway (not including sub-packets)
         var subpackets = mutableListOf<Packet>()
