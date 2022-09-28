@@ -1,6 +1,8 @@
 package org.elwaxoro.advent
 
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -261,6 +263,46 @@ data class Coord3D(val x: Int = 0, val y: Int = 0, val z: Int = 0, val w: Int = 
         0, 0, 1, z,
         0, 0, 0, w
     )
+}
+
+// TODO verify
+fun Bounds3D.enumerateCube(): List<Coord3D> =
+    (min.x..max.x).flatMap { x ->
+        (min.y..max.y).flatMap { y ->
+            (min.z..max.z).map { z ->
+                Coord3D(x, y, z)
+            }
+        }
+    }
+
+// TODO verify
+fun Bounds3D.contains(that: Coord3D): Boolean =
+    min.x <= that.x && max.x >= that.x &&
+        min.y <= that.y && max.y >= that.y &&
+        min.z <= that.z && max.z >= that.x
+
+// TODO verify
+fun Bounds3D.intersects(that: Bounds3D): Boolean =
+    contains(that.min) || contains(that.max) || that.contains(min) || that.contains(max)
+
+// TODO verify
+fun Bounds3D.intersection(that: Bounds3D): Bounds3D =
+    Bounds3D(
+        min = Coord3D(max(min.x, that.min.x), max(min.y, that.min.y), max(min.z, that.min.z)),
+        max = Coord3D(min(max.x, that.max.x), min(max.y, that.max.y), min(max.z, that.max.z))
+    )
+
+/**
+ * Basically Pair<Coord3D, Coord3D>
+ */
+data class Bounds3D(val min: Coord3D, val max: Coord3D) {
+    init {
+        check(min.x <= max.x) {"X: ${min.x} must be <= ${max.x} [$this]"}
+        check(min.y <= max.y) {"Y: ${min.y} must be <= ${max.y} [$this]"}
+        check(min.z <= max.z) {"Z: ${min.z} must be <= ${max.z} [$this]"}
+    }
+    // TODO verify
+    fun size(): Long = abs(max.x-min.x).toLong() * abs(max.y-min.y) * (max.z-min.z)
 }
 
 /**
