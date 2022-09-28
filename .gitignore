@@ -2,3 +2,5 @@
 build
 .idea
 out/
+gradlew.bat
+.DS_Store
