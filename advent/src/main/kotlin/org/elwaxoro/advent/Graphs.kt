@@ -16,6 +16,9 @@ data class Node(
 
     override fun toString(): String = name
 
+    /**
+     * Edge cost of an adjacent node
+     */
     fun cost(node: Node): Int = edges[node]!!
 
     fun addEdge(node: Node, cost: Int = 0) {
@@ -72,14 +75,35 @@ fun List<Node>.addNode(node: Node): List<Node> = map {
     }
 }.plus(node)
 
+/**
+ * Minimum cost path from a list of paths (path: list of connected nodes)
+ */
 fun minCost(nodes: List<List<Node>>): Int = nodes.minOf { it.cost() }
+
+/**
+ * Maximum cost path from a list of paths (path: list of connected nodes)
+ */
 fun maxCost(nodes: List<List<Node>>): Int = nodes.maxOf { it.cost() }
+
+/**
+ * Minimum cost path, get the path
+ */
 fun minPath(nodes: List<List<Node>>): List<Node> = nodes.minByOrNull { it.cost() }!!
+
+/**
+ * Maximum cost path, get the path
+ */
 fun maxPath(nodes: List<List<Node>>): List<Node> = nodes.maxByOrNull { it.cost() }!!
+
+/**
+ * Total cost of path described by list of nodes. Assumes in-order traversal and that nodes are actually connected
+ */
 fun List<Node>.cost(): Int = zipWithNext { a, b -> a.cost(b) }.sum()
 
 /**
  * Assumes a fully connected bidirectional graph, find the best path that includes ALL nodes
+ * pathfinder and cost function must be provided
+ * connectLoop will add an edge between start and end nodes
  */
 fun findBestPath(
     nodes: List<Node>,
@@ -98,6 +122,7 @@ fun findBestPath(
     })
 
 /**
+ * Visits all nodes in a list, using the provided pathfinder to decide what to visit next
  * Assumes a fully connected bidirectional graph
  */
 fun visitAllNodes(

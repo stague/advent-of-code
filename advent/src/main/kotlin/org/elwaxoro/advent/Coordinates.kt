@@ -87,6 +87,9 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
     fun subtract(dxy: Coord): Coord =
         Coord(x - dxy.x, y - dxy.y, d)
 
+    /**
+     * List of neighbors in cardinal directions only [N,S,E,W], excluding this coord
+     */
     fun neighbors(): List<Coord> =
         Dir.values().map { move(it) }
 
@@ -100,6 +103,9 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
             listOf(Coord(x - 1, y + 1), Coord(x, y + 1), Coord(x + 1, y + 1))
         )
 
+    /**
+     * Gets the direction of an adjacent Coord
+     */
     fun edge(that: Coord): Dir =
         if (x == that.x) {
             if (y == that.y - 1) {
@@ -117,8 +123,11 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
             throw IllegalStateException("Coord $that is not adjacent to $this")
         }
 
+    /**
+     * Simplistic rotations for multiples of 90 degrees only
+     */
     fun rotate(rotation: Int): Coord =
-        when (rotation) {
+        when (rotation % 360) {
             0 -> this
             90 -> Coord(y, x * -1, d)
             180 -> Coord(x * -1, y * -1, d)
@@ -195,12 +204,26 @@ fun Pair<Coord, Coord>.contains(c: Coord): Boolean {
     return c.x >= xs.first() && c.x <= xs.last() && c.y >= ys.first() && c.y <= ys.last()
 }
 
+/**
+ * Creates two Coords from a collection to describe the corners of a rectangle that contain all the Coords
+ */
 fun Collection<Coord>.bounds(): Pair<Coord, Coord> {
     val xs = map { it.x }.sorted()
     val ys = map { it.y }.sorted()
     return (Coord(xs.first(), ys.first()) to Coord(xs.last(), ys.last()))
 }
 
+/**
+ * Creates a visual representation of collection of Coords, required for some puzzles
+ * ex:
+ * [0,0] to [38,5]
+ *    ##  #  #  ##   ##  ###   ##   ##  #  #
+ *   #  # #  # #  # #  # #  # #  # #  # #  #
+ *   #  # #### #    #    #  # #    #  # #  #
+ *   #### #  # # ## #    ###  # ## #### #  #
+ *   #  # #  # #  # #  # #    #  # #  # #  #
+ *   #  # #  #  ###  ##  #     ### #  #  ##
+ */
 fun Collection<Coord>.printify(full: Char = '#', empty: Char = '.', invert: Boolean = false): String {
     val xs = map { it.x }.sorted()
     val ys = map { it.y }.sorted()
@@ -352,6 +375,9 @@ data class Matrix4(
         """.trimIndent()
 }
 
+/**
+ * Some basic 90 degree matrix rotations
+ */
 enum class Rotation4(val matrix: Matrix4) {
     IDENTITY(
         Matrix4(
@@ -387,7 +413,10 @@ enum class Rotation4(val matrix: Matrix4) {
     );
 
     companion object {
-        // This makes 64 rotations but only 24 of them are unique. That's called efficiency
+        /**
+         * All possible combined 90 degree rotations of a matrix
+         * This makes 64 rotations but only 24 of them are unique. That's called efficiency
+         */
         fun allTheThings(): Set<Matrix4> =
             (0..3).map { x ->
                 (0..3).map { y ->

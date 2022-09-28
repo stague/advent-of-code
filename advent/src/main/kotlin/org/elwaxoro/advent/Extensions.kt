@@ -1,5 +1,10 @@
 package org.elwaxoro.advent
 
+/**
+ * ByteArray to hexadecimal string
+ * ex:
+ * 6d9b3bf5bf5fc15c0e49081f9b160da6
+ */
 fun ByteArray.toHexString() = joinToString("") { (0xFF and it.toInt()).toString(16).padStart(2, '0') }
 
 /**
@@ -47,10 +52,23 @@ fun <T> MutableList<MutableList<T>>.rowColSwap(): MutableList<MutableList<T>> =
  */
 fun Int.toward(to: Int): IntProgression = IntProgression.fromClosedRange(this, to, 1.takeIf { this <= to } ?: -1)
 
+/**
+ * Pads a progression of Int to the desired size, using the final Int as the pad value
+ */
 fun IntProgression.padTo(newSize: Int): List<Int> = toList().padTo(newSize)
 
+/**
+ * Pads a list of anything to the desired size, using the final object as the pad object
+ * ex
+ * listOf(1,2,3).padTo(10)
+ * becomes
+ * [1, 2, 3, 3, 3, 3, 3, 3, 3, 3]
+ */
 fun <T> List<T>.padTo(newSize: Int): List<T> = takeIf { size >= newSize } ?: plus(List(newSize - size) { last() })
 
+/**
+ * Get the median from a list of Int
+ */
 fun List<Int>.median(): Double = sorted().let {
     if (size % 2 == 0) {
         (it[size / 2] + it[size / 2 - 1]) / 2.0
@@ -94,4 +112,7 @@ fun <T, U> List<Map<T, U>>.merge(merger: (value: U, existing: U?) -> U): Map<T, 
     }
 }
 
+/**
+ * Nullable Long plusser, null defaults to 0
+ */
 fun Long.plusNull(that: Long?): Long = (that ?: 0L) + this
