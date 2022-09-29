@@ -13,7 +13,8 @@ class Dec15 : PuzzleDayTester(15, 2021) {
 
     override fun puzzle1(): Any = parse().cornerToCornerCost()
 
-    override fun puzzle2(): Any = "Disabled!"//parse(reps = 5).cornerToCornerCost()
+    // victim of incomplete refactors to optimize and clean up code, now goes OOM but it's a year later so :shrug:
+    override fun puzzle2(): Any = "OOM"//parse(reps = 5).cornerToCornerCost()
 
     private fun List<List<Node>>.cornerToCornerCost(): Int {
         this[0][0].dijkstra()

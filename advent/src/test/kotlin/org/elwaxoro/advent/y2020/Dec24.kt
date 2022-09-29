@@ -12,9 +12,10 @@ class Dec24 : PuzzleDayTester(24, 2020) {
     override fun puzzle1(): Any = flipYourShit().size
 
     override fun puzzle2(): Any = (1..100).fold(flipYourShit()) { hexes, round ->
-        flipAroundRightRoundLikeARecordBaby(hexes).also {
-            println("Day $round: ${it.size}")
-        }
+        flipAroundRightRoundLikeARecordBaby(hexes)
+//            .also {
+//                println("Day $round: ${it.size}")
+//            }
     }.size
 
     private fun flipYourShit(): Set<Hex> = parse().let { moveLists ->

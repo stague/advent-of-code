@@ -29,7 +29,7 @@ class Dec17 : PuzzleDayTester(17, 2020) {
                             null
                         }
                     }
-            }.flatten().toSet().also { println("Cycle $iter had ${it.size} active cells") }
+            }.flatten().toSet()//.also { println("Cycle $iter had ${it.size} active cells") }
         }.size
 
     /**

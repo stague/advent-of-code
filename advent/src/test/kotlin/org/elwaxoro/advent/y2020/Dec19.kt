@@ -8,7 +8,7 @@ class Dec19 : PuzzleDayTester(19, 2020) {
         // first arg is the rule map, second is the list of messages
         rulesToMessages.second.filter {
             val maxIdxMatches = rulesToMessages.first["0"]!!.find(it, 0, rulesToMessages.first)
-            println("Puzzle1: $it len: ${it.length} matches: $maxIdxMatches ${if (maxIdxMatches.contains(it.length)) "SUCCESS" else "failed"}")
+            //println("Puzzle1: $it len: ${it.length} matches: $maxIdxMatches ${if (maxIdxMatches.contains(it.length)) "SUCCESS" else "failed"}")
             // if there's a max idx equal to the message length, we did it!
             maxIdxMatches.contains(it.length)
         }.size
@@ -23,7 +23,7 @@ class Dec19 : PuzzleDayTester(19, 2020) {
 
         rulesToMessages.second.filter {
             val maxIdxMatches = rules["0"]!!.find(it, 0, rules)
-            println("Puzzle2: $it len: ${it.length} matches: $maxIdxMatches ${if (maxIdxMatches.contains(it.length)) "SUCCESS" else "failed"}")
+            //println("Puzzle2: $it len: ${it.length} matches: $maxIdxMatches ${if (maxIdxMatches.contains(it.length)) "SUCCESS" else "failed"}")
             // if there's a max idx equal to the message length, we did it!
             maxIdxMatches.contains(it.length)
         }.size
