@@ -1,3 +1,5 @@
+[![CI Build](https://github.com/elwaxoro/advent-of-code/blob/main/.github/workflows/gradle.yml/badge.svg)](https://github.com/elwaxoro/advent-of-code/blob/main/.github/workflows/gradle.yml)
+
 # advent-of-code
 Just having some fun with https://adventofcode.com/ challenges, solved with Kotlin
 
