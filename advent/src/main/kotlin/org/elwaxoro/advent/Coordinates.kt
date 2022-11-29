@@ -57,6 +57,9 @@ enum class Turn {
 
 /**
  * 2D coordinate
+ * Note: these coords are immutable, any mutating call return a new Coord with the changes leaving the original untouched
+ * Note2: these coords are x,y which works well for 2D graph / coordinate math but doesn't map well for row/column uses which should be thought of as y,x
+ * Note3: when thinking about images, keep in mind where your 0,0 is (top left or bottom left) and where your y+1 direction needs to go (up or down)
  */
 data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
     companion object {

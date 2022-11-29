@@ -23,7 +23,7 @@ class Dec12 : PuzzleDayTester(12, 2021) {
         if (!current.canLeave) {
             listOf(path) // exit found, nowhere else to go!
         } else {
-            current.nodes.mapNotNull {
+            current.edges.keys.mapNotNull {
                 if (!it.canVisit) {
                     null // start can never be re-visited
                 } else if (it.canRevisit || !it.canLeave || !path.contains(it)) {
@@ -40,7 +40,7 @@ class Dec12 : PuzzleDayTester(12, 2021) {
 
     private fun parse(): MutableMap<String, Node> = mutableMapOf<String, Node>().also { map ->
         load().map { it.split("-") }.map { (a, b) ->
-            // bi-directional graph
+            // bidirectional graph
             val nodeA = map.getOrDefaultNode(a)
             val nodeB = map.getOrDefaultNode(b)
             nodeA.addEdge(nodeB)
@@ -52,3 +52,4 @@ class Dec12 : PuzzleDayTester(12, 2021) {
 
     private fun Map<String, Node>.getOrDefaultNode(name: String): Node = getOrDefault(name, Node(name, canVisit = name != "start", canLeave = name != "end", canRevisit = name.matches(Regex("[A-Z]+"))))
 }
+

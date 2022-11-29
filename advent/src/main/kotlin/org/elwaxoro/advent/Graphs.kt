@@ -1,14 +1,18 @@
 package org.elwaxoro.advent
 
+/**
+ * ad-hoc wrapper class for doing stuff with graphs based purely on
+ * what's needed for past challenges with no thought given to future need
+ * Nodes connect to other Nodes via edges
+ */
 data class Node(
     val name: String,
-    val canVisit: Boolean = true,
-    val canLeave: Boolean = true,
-    val canRevisit: Boolean = false
+    val canVisit: Boolean = true, // custom rules for a puzzle, indicates unexplored node
+    val canLeave: Boolean = true, // custom rules for a puzzle, indicates exit node
+    val canRevisit: Boolean = false // custom rules for a puzzle
 ) {
 
-    val edges = mutableMapOf<Node, Int>()
-    val nodes = mutableListOf<Node>()
+    val edges = mutableMapOf<Node, Int>() // directly connected nodes, along with cost to visit them if applicable
 
     // helpers for dijkstra
     var shortestPath = listOf<Node>()
@@ -17,14 +21,14 @@ data class Node(
     override fun toString(): String = name
 
     /**
-     * Edge cost of an adjacent node
+     * Edge cost to visit an adjacent node
      */
     fun cost(node: Node): Int = edges[node]!!
 
+    /**
+     * Add an adjacent node + cost to visit
+     */
     fun addEdge(node: Node, cost: Int = 0) {
-        if (!edges.contains(node)) {
-            nodes.add(node)
-        }
         edges[node] = cost
     }
 
@@ -45,14 +49,18 @@ data class Node(
                 // node goes from unsettled to settled
                 settled.add(unsettled.delete(node))
                 // all neighbors not already settled update their distances and go in the unsettled pile
-                unsettled.addAll(node.nodes.filterNot { settled.contains(it) }.map { it.calculateMinimumDistance(node) })
+                unsettled.addAll(node.edges.keys.filterNot { settled.contains(it) }.map { it.calculateMinimumDistance(node) })
             }
         }
     }
 
+    /**
+     * dijkstra helper
+     */
     private fun MutableSet<Node>.delete(node: Node): Node = node.also { remove(node) }
 
     /**
+     * dijkstra helper
      * If (other's shortest path + cost there to here) is better than this node's shortest path,
      * replace this node's shortest path stuff
      */
