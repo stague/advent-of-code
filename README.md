@@ -4,12 +4,12 @@
 Just having some fun with https://adventofcode.com/ challenges, solved with Kotlin
 
 ## How to has?
-Extend `PuzzleDayTester` for each new day, override puzzle1 and puzzle2 functions as you write them
+Extend `PuzzleDayTester` for each new day, override part1 and part2 functions as you write them
 
 ```
 class Dec01 : PuzzleDayTester(1, 2020) {
-    override fun puzzle1(): Any = "Yay"
-    override fun puzzle2(): Any = "Boo"
+    override fun part1(): Any = "Yay"
+    override fun part2(): Any = "Boo"
 }
 ```
 
