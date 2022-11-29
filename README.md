@@ -26,3 +26,6 @@ load(testNum: Int? = null, delimiter: String = "\n"): List<String>
 ```
 
 if `testNum` is given, a file with the format `Dec01-test-1.txt` is looked for instead of `Dec01.txt`
+
+## Disclaimers
+Running the code for previous days / years isn't guaranteed to work or give correct output. Same goes for some of the helper functions. Most things *should* work, but ymmv! I tend to solve these quickly, then come back later to refactor. Sometimes the refactor breaks it and then I run out of time to fight with it, so it stays broken. Good luck!
