@@ -17,7 +17,7 @@ By default, these tests fail till they're implemented.
 Since the test doesn't know the right answer, check the log output for what to copy into the advent of code test boxes
 
 ## Input files
-Input files should go in main/resources based on year and date
+Input files should go in test/resources based on year and date
 
 PuzzleDay has a `load` function to help find them and parse them in a simple way (one string per newline by default)
 
