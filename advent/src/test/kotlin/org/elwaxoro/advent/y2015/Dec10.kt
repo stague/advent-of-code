@@ -7,11 +7,11 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec10 : PuzzleDayTester(10, 2015) {
 
-    override fun puzzle1(): Any = (1..40).fold("3113322113") { acc, _ ->
+    override fun part1(): Any = (1..40).fold("3113322113") { acc, _ ->
         acc.lookAndSay()
     }.length
 
-    override fun puzzle2(): Any = (1..50).fold("3113322113") { acc, _ ->
+    override fun part2(): Any = (1..50).fold("3113322113") { acc, _ ->
         acc.lookAndSay()
     }.length
 

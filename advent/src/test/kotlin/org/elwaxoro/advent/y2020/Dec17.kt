@@ -6,8 +6,8 @@ class Dec17 : PuzzleDayTester(17, 2020) {
 
     private data class Coord(val w: Int, val z: Int, val y: Int, val x: Int)
 
-    override fun puzzle1(): Any = doDumbShit((0..0))
-    override fun puzzle2(): Any = doDumbShit((-1..1))
+    override fun part1(): Any = doDumbShit((0..0))
+    override fun part2(): Any = doDumbShit((-1..1))
 
     private fun doDumbShit(wRange: IntRange): Int =
         (1..6).fold(parse()) { activeCells, iter ->

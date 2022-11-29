@@ -13,9 +13,9 @@ import org.elwaxoro.advent.minPath
  */
 class Dec09 : PuzzleDayTester(9, 2015) {
 
-    override fun puzzle1(): Any = findBestPath(parse(), connectLoop = false, ::minPath, ::minCost)
+    override fun part1(): Any = findBestPath(parse(), connectLoop = false, ::minPath, ::minCost)
 
-    override fun puzzle2(): Any = findBestPath(parse(), connectLoop = false, ::maxPath, ::maxCost)
+    override fun part2(): Any = findBestPath(parse(), connectLoop = false, ::maxPath, ::maxCost)
 
     private fun parse(): List<Node> = mutableMapOf<String, Node>().also { map ->
         load().let { lines ->

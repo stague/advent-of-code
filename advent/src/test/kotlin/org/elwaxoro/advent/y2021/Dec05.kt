@@ -8,9 +8,9 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec05 : PuzzleDayTester(5, 2021) {
 
-    override fun puzzle1(): Any = parse().filter { it.first().x == it.last().x || it.first().y == it.last().y }.enumerateAndCount()
+    override fun part1(): Any = parse().filter { it.first().x == it.last().x || it.first().y == it.last().y }.enumerateAndCount()
 
-    override fun puzzle2(): Any = parse().enumerateAndCount()
+    override fun part2(): Any = parse().enumerateAndCount()
 
     private fun List<List<Coord>>.enumerateAndCount() = flatMap { it.first().enumerateLine(it.last()) }.groupingBy { it }.eachCount().filter { it.value > 1 }.size
 

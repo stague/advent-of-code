@@ -4,7 +4,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec08 : PuzzleDayTester(8, 2020) {
 
-    override fun puzzle1(): String {
+    override fun part1(): String {
         val ops = parse()
         val opStack = mutableListOf(ops[0])
 
@@ -22,7 +22,7 @@ class Dec08 : PuzzleDayTester(8, 2020) {
         return "${opStack.sumOf{ it.accumulate() }}"
     }
 
-    override fun puzzle2(): String {
+    override fun part2(): String {
         val ops = parse()
         var idx = 0
         val idxStack = mutableListOf<Int>()

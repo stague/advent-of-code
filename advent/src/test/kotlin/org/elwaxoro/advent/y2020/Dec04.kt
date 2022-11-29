@@ -4,7 +4,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec04 : PuzzleDayTester(4, 2020) {
 
-    override fun puzzle1(): Any =
+    override fun part1(): Any =
         load(delimiter = "\n\n").map { rawBlob ->
             rawBlob.replace("\n", " ")
                 .trim()
@@ -14,7 +14,7 @@ class Dec04 : PuzzleDayTester(4, 2020) {
                 }.toMap()
         }.filter { it.foreignerDetector1PointO() }.size
 
-    override fun puzzle2(): Any =
+    override fun part2(): Any =
         load(delimiter = "\n\n").map { it.replace("\n", " ") + " " }.filter { it.foreignerDetector2PointO() }.size
 
     // BWAHAHAHA TAKE THAT REGEX YA COCKY BASTARD

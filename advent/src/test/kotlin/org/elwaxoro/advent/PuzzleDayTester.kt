@@ -5,17 +5,22 @@ import java.nio.file.Paths
 import kotlin.test.Test
 import kotlin.test.assertNotEquals
 
+/**
+ * Extend PuzzleDayTester with your puzzle for the day!
+ * Puzzles generally come in two parts, so extend part1() and part2() as you go
+ * Run your class as a unit test to get that sweet sweet output
+ */
 abstract class PuzzleDayTester(val day: Int, val year: Int) {
 
     /**
-     * Extend me!
+     * Part1: Extend me!
      */
-    open fun puzzle1(): Any = "TODO"
+    open fun part1(): Any = "TODO"
 
     /**
-     * Extend me!
+     * Part2: Extend me!
      */
-    open fun puzzle2(): Any = "TODO"
+    open fun part2(): Any = "TODO"
 
     /**
      * Default loader, gets the input file and returns a list of strings
@@ -43,14 +48,14 @@ abstract class PuzzleDayTester(val day: Int, val year: Int) {
      * Shouldn't need to touch this
      */
     @Test
-    open fun testPuzzle1() = testPuzzle("$year-$day Puzzle 1", ::puzzle1)
+    open fun testPart1() = testPuzzle("$year-$day Puzzle 1", ::part1)
 
     /**
      * Unit test for part two of puzzles
      * Shouldn't need to touch this either!
      */
     @Test
-    open fun testPuzzle2() = testPuzzle("$year-$day Puzzle 2", ::puzzle2)
+    open fun testPart2() = testPuzzle("$year-$day Puzzle 2", ::part2)
 
     /**
      * Runs the test, prints its output and how long it took

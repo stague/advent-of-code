@@ -4,9 +4,9 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec05 : PuzzleDayTester(5, 2020) {
 
-    override fun puzzle1(): Any = findMaxPass()
+    override fun part1(): Any = findMaxPass()
 
-    override fun puzzle2(): Any = findMissingPass()
+    override fun part2(): Any = findMissingPass()
 
     /**
      * Missing pass = sum of all pass numbers - sum of actual pass numbers

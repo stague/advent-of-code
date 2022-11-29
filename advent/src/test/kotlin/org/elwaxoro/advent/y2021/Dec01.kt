@@ -7,11 +7,11 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec01 : PuzzleDayTester(1, 2021) {
 
-    override fun puzzle1(): Any = radarReader().fold(Pair(0, Int.MAX_VALUE)) { acc, next ->
+    override fun part1(): Any = radarReader().fold(Pair(0, Int.MAX_VALUE)) { acc, next ->
         acc.depthCounter(next)
     }.first
 
-    override fun puzzle2(): Any = radarReader().let { input ->
+    override fun part2(): Any = radarReader().let { input ->
         input.subList(0, input.size - 2).foldIndexed(Pair(0, Int.MAX_VALUE)) { idx, acc, _ ->
             acc.depthCounter(input.subList(idx, idx + 3).sum())
         }.first

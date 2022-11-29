@@ -9,11 +9,11 @@ import org.elwaxoro.advent.printify
  */
 class Dec13 : PuzzleDayTester(13, 2021) {
 
-    override fun puzzle1(): Any = parse().let { (coords, folds) ->
+    override fun part1(): Any = parse().let { (coords, folds) ->
         coords.foldPaper(folds.first()).size
     }
 
-    override fun puzzle2(): Any = parse().let { (coords, folds) ->
+    override fun part2(): Any = parse().let { (coords, folds) ->
         "\n\n" + folds.fold(coords) { acc, fold ->
             acc.foldPaper(fold)
         }.printify(empty = ' ')

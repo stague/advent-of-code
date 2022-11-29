@@ -9,11 +9,11 @@ import kotlin.math.ceil
  */
 class Dec18 : PuzzleDayTester(18, 2021) {
 
-    override fun puzzle1(): Any = load().map { it.parseSnode() }.reduce { acc, snode ->
+    override fun part1(): Any = load().map { it.parseSnode() }.reduce { acc, snode ->
         acc.add(snode).repeatingExploderSplitterReducer()
     }.repeatingExploderSplitterReducer().magnatude()
 
-    override fun puzzle2(): Any = load().let { lines ->
+    override fun part2(): Any = load().let { lines ->
         lines.maxOf { a ->
             lines.minus(a).maxOf { b ->
                 // BRUTE FORCE BAYBEEE

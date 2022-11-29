@@ -15,7 +15,7 @@ class Dec03 : PuzzleDayTester(3, 2021) {
      * Swap 0s for -1s then just zip all the lists together into a list of sums
      * If it's negative that's a 0 if its positive that's a 1
      */
-    override fun puzzle1(): Any = load().map { it.splitToInt().replace(0, -1) }.let { readings ->
+    override fun part1(): Any = load().map { it.splitToInt().replace(0, -1) }.let { readings ->
         readings.fold(List(readings.first().size) { 0 }) { acc, reading ->
             acc.zip(reading, Int::plus)
         }
@@ -23,7 +23,7 @@ class Dec03 : PuzzleDayTester(3, 2021) {
         it.toBinaryInt() * it.bitFlip().toBinaryInt()
     }
 
-    override fun puzzle2(): Any = load().let {
+    override fun part2(): Any = load().let {
         it.seekReading(true) * it.seekReading(false)
     }
 

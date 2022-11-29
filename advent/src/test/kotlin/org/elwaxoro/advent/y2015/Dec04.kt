@@ -13,8 +13,8 @@ class Dec04 : PuzzleDayTester(4, 2015) {
 
     private val input = "yzbqklnj"
 
-    override fun puzzle1(): Any = hashHaxxor("00000")
-    override fun puzzle2(): Any = hashHaxxor("000000")
+    override fun part1(): Any = hashHaxxor("00000")
+    override fun part2(): Any = hashHaxxor("000000")
 
     fun hashHaxxor(goal: String): Long = MessageDigest.getInstance("MD5").let { md2020 ->
         generateSequence(0L) { it + 1 }.first { seed ->

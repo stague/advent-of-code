@@ -9,9 +9,9 @@ import java.util.Locale
  */
 class Dec24 : PuzzleDayTester(24, 2020) {
 
-    override fun puzzle1(): Any = flipYourShit().size
+    override fun part1(): Any = flipYourShit().size
 
-    override fun puzzle2(): Any = (1..100).fold(flipYourShit()) { hexes, round ->
+    override fun part2(): Any = (1..100).fold(flipYourShit()) { hexes, round ->
         flipAroundRightRoundLikeARecordBaby(hexes)
 //            .also {
 //                println("Day $round: ${it.size}")

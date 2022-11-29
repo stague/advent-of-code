@@ -4,8 +4,8 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec22 : PuzzleDayTester(22, 2020) {
 
-    override fun puzzle1(): Any = "DONT DEAD"
-    override fun puzzle2(): Any = "OPEN INSIDE"
+    override fun part1(): Any = "DONT DEAD"
+    override fun part2(): Any = "OPEN INSIDE"
 
     // TODO this one got away from me on the refactor after submitting a solution. just give up now and ignore this file
 //    parse().let { startingDecks ->

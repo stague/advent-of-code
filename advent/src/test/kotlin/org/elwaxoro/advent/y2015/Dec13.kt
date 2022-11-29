@@ -11,9 +11,9 @@ import org.elwaxoro.advent.maxPath
  * Knights of the Dinner Table
  */
 class Dec13: PuzzleDayTester(13, 2015) {
-    override fun puzzle1(): Any = findBestPath(parse(), connectLoop = true, ::maxPath, ::maxCost)
+    override fun part1(): Any = findBestPath(parse(), connectLoop = true, ::maxPath, ::maxCost)
 
-    override fun puzzle2(): Any = parse().let { nodes ->
+    override fun part2(): Any = parse().let { nodes ->
         val newNode = Node("Me")
         nodes.forEach {
             newNode.addEdge(it, 0)

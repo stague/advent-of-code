@@ -8,13 +8,13 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec12 : PuzzleDayTester(12, 2021) {
 
-    override fun puzzle1(): Any = parse().let { nodes ->
+    override fun part1(): Any = parse().let { nodes ->
         val start = nodes["start"]!!
         // reserve the special small cave ahead of time, preventing any small node re-visits (part 2 only)
         flail(start, specialSmallCave = start, listOf(start)).size
     }
 
-    override fun puzzle2(): Any = parse().let { nodes ->
+    override fun part2(): Any = parse().let { nodes ->
         val start = nodes["start"]!!
         flail(start, specialSmallCave = null, listOf(start)).size
     }

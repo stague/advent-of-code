@@ -4,14 +4,14 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec25 : PuzzleDayTester(25, 2020) {
 
-    override fun puzzle1(): Any {
+    override fun part1(): Any {
         val keys = listOf(19241437L, 17346587L)
         val firstKeyLoop = hACKtHEpLANET(keys)
         val otherKey = keys.filterNot { it == firstKeyLoop.first }.single()
         return hACKtHEpLANET(subject = otherKey, stop = firstKeyLoop.second).first
     }
 
-    override fun puzzle2(): Any = "There is no puzzle 2"
+    override fun part2(): Any = "There is no puzzle 2"
 
     private fun hACKtHEpLANET(
         keys: List<Long> = listOf(),

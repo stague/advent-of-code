@@ -11,7 +11,7 @@ import org.elwaxoro.advent.splitToInt
  */
 class Dec09 : PuzzleDayTester(9, 2021) {
 
-    override fun puzzle1(): Any = parse().let { grid ->
+    override fun part1(): Any = parse().let { grid ->
         grid.mapIndexed { rowIdx, row ->
             row.mapIndexedNotNull { colIdx, height ->
                 (height + 1).takeIf { grid.neighbors(rowIdx, colIdx).none { it <= height } }
@@ -19,7 +19,7 @@ class Dec09 : PuzzleDayTester(9, 2021) {
         }.flatten().sum()
     }
 
-    override fun puzzle2(): Any = parse().let { grid ->
+    override fun part2(): Any = parse().let { grid ->
         var basinCtr = 0 // idk number basins I guess
         val basinMap = mutableMapOf<Coord, Int>() // each point in the grid, mapped to the basin it belongs to
 

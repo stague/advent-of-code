@@ -3,7 +3,7 @@ package org.elwaxoro.advent.y2020
 import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec07 : PuzzleDayTester(7, 2020) {
-    override fun puzzle1(): Int {
+    override fun part1(): Int {
         val tree = Node("shiny gold")
         val bags = parse()
         var oldTreeSize: Int
@@ -17,7 +17,7 @@ class Dec07 : PuzzleDayTester(7, 2020) {
         return (tree.puzzle1().size - 1)
     }
 
-    override fun puzzle2(): Int {
+    override fun part2(): Int {
         val tree = Node("shiny gold")
         val bags = parse2()
         var inserts: Int

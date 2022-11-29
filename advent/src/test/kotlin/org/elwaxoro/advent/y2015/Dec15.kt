@@ -6,9 +6,9 @@ import org.elwaxoro.advent.plusNull
 
 class Dec15 : PuzzleDayTester(15, 2015) {
 
-    override fun puzzle1(): Any = expandScoops(100L, mapOf(), parse(), null) ?: -1
+    override fun part1(): Any = expandScoops(100L, mapOf(), parse(), null) ?: -1
 
-    override fun puzzle2(): Any = expandScoops(100L, mapOf(), parse(), 500) ?: -1
+    override fun part2(): Any = expandScoops(100L, mapOf(), parse(), 500) ?: -1
 
     private fun expandScoops(
         remainingScoops: Long,

@@ -7,11 +7,11 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec10 : PuzzleDayTester(10, 2021) {
 
-    override fun puzzle1(): Any = parse().mapNotNull { line ->
+    override fun part1(): Any = parse().mapNotNull { line ->
         line.analyze(scoreCorrupt = true)
     }.sum()
 
-    override fun puzzle2(): Any = parse().mapNotNull { line ->
+    override fun part2(): Any = parse().mapNotNull { line ->
         line.analyze(scoreCorrupt = false)
     }.sorted().let {
         it[it.size / 2]

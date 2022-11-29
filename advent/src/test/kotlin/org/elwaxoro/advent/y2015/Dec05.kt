@@ -12,13 +12,13 @@ class Dec05 : PuzzleDayTester(5, 2015) {
     private val vowels = listOf('a', 'e', 'i', 'o', 'u')
     private val bad = listOf("ab", "cd", "pq", "xy")
 
-    override fun puzzle1(): Any = load().filter { line ->
+    override fun part1(): Any = load().filter { line ->
         line.count { it in vowels } > 2 // at least three vowels
             && line.zipWithNext().any { it.first == it.second } // at least one letter that appears twice in a row
             && bad.none { line.contains(it) } // does not contain the strings ab, cd, pq, or xy
     }.count()
 
-    override fun puzzle2(): Any = load().filter { line ->
+    override fun part2(): Any = load().filter { line ->
         // blerg. this got messy. loop every single char
         line.mapIndexedNotNull { index, c ->
             // save next char for the pair, then substring the rest. if the rest contains the pair, its a match

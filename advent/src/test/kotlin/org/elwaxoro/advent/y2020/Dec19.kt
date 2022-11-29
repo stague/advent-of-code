@@ -4,7 +4,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec19 : PuzzleDayTester(19, 2020) {
 
-    override fun puzzle1(): Any = parse().let { rulesToMessages ->
+    override fun part1(): Any = parse().let { rulesToMessages ->
         // first arg is the rule map, second is the list of messages
         rulesToMessages.second.filter {
             val maxIdxMatches = rulesToMessages.first["0"]!!.find(it, 0, rulesToMessages.first)
@@ -14,7 +14,7 @@ class Dec19 : PuzzleDayTester(19, 2020) {
         }.size
     }
 
-    override fun puzzle2(): Any = parse().let { rulesToMessages ->
+    override fun part2(): Any = parse().let { rulesToMessages ->
         // first arg is the rule map, second is the list of messages
         val rules = rulesToMessages.first.toMutableMap()
         // add the 2 custom rules

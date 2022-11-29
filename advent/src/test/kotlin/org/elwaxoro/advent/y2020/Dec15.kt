@@ -4,9 +4,9 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec15 : PuzzleDayTester(15, 2020) {
 
-    override fun puzzle1() = doTheSlightlyFasterThing(2020)
+    override fun part1() = doTheSlightlyFasterThing(2020)
 //    override fun puzzle2() = doTheSlowThing(30000000)
-    override fun puzzle2(): Any = "OOM"
+    override fun part2(): Any = "OOM"
 
     // pre-load some arrays of "big enough size" to hold stuff
     private fun doTheSlightlyFasterThing(turns: Int): Any {

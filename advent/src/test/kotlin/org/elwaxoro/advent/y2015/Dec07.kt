@@ -7,11 +7,11 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec07 : PuzzleDayTester(7, 2015) {
 
-    override fun puzzle1(): Any = parse().runTransforms()
+    override fun part1(): Any = parse().runTransforms()
 
-    override fun puzzle2(): Any = parse().map {
+    override fun part2(): Any = parse().map {
         if(it.target == "b") {
-            Transform("b", puzzle1().toString())
+            Transform("b", part1().toString())
         } else {
             it
         }

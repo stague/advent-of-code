@@ -4,10 +4,10 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec11 : PuzzleDayTester(11, 2020) {
 
-    override fun puzzle1(): Int =
+    override fun part1(): Int =
         parse().findStableSeating(maxNeighbors = 4, transformFloor = true).countOccupiedSeats()
 
-    override fun puzzle2(): Int =
+    override fun part2(): Int =
         parse().findStableSeating(maxNeighbors = 5, transformFloor = false).countOccupiedSeats()
 
     private fun List<List<Int>>.findStableSeating(

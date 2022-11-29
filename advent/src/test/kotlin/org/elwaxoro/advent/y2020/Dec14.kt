@@ -6,7 +6,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec14 : PuzzleDayTester(14, 2020) {
 
-    override fun puzzle1(): Any {
+    override fun part1(): Any {
         val map: MutableMap<Long, Long> = mutableMapOf()
         var mask = ""
         parse().forEach { cmd ->
@@ -28,7 +28,7 @@ class Dec14 : PuzzleDayTester(14, 2020) {
         return map.values.sum()
     }
 
-    override fun puzzle2(): Any {
+    override fun part2(): Any {
         val map: MutableMap<Long, Long> = mutableMapOf()
         var mask = ""
         parse().forEach { cmd ->

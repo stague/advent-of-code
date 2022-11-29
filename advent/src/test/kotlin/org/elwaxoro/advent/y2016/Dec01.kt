@@ -7,7 +7,7 @@ import org.elwaxoro.advent.Turn
 
 class Dec01 : PuzzleDayTester(1, 2016) {
 
-    override fun puzzle1(): Any = parse().fold(Position()) { acc, move ->
+    override fun part1(): Any = parse().fold(Position()) { acc, move ->
         move.apply(acc)
     }.coord.taxiDistance(Coord())
 
@@ -16,7 +16,7 @@ class Dec01 : PuzzleDayTester(1, 2016) {
      * Didn't realize it was ANY coordinate not just the ending coordinates
      * 153
      */
-    override fun puzzle2(): Any {
+    override fun part2(): Any {
         val visited = mutableSetOf(Coord())
         var position = Position()
         return parse().flatMap { move ->
