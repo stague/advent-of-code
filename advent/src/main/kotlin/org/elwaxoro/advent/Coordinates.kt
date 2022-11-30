@@ -60,6 +60,7 @@ enum class Turn {
  * Note: these coords are immutable, any mutating call return a new Coord with the changes leaving the original untouched
  * Note2: these coords are x,y which works well for 2D graph / coordinate math but doesn't map well for row/column uses which should be thought of as y,x
  * Note3: when thinking about images, keep in mind where your 0,0 is (top left or bottom left) and where your y+1 direction needs to go (up or down)
+ * Note4: if using different d (display char) equals and hash code will NOT work!
  */
 data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
     companion object {
@@ -70,6 +71,11 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
             Coord(it[0].toInt(), it[1].toInt())
         }
     }
+
+    /**
+     * Copy, but with new d (display char)
+     */
+    fun copyD(n: Char? = null): Coord = Coord(x, y, n)
 
     override fun toString(): String = "($x,$y)"
 
@@ -154,8 +160,11 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
     }
 
     /**
-     * Return the list of all coords in a line from this coord to the target coord, includiing both start and end coords
+     * Return the list of all coords in a line from this coord to the target coord, including both start and end coords
+     * Coords are in order from this to toCoord
+     * ex (0,0) to (5,-5) produces: [(0,0), (1,-1), (2,-2), (3,-3), (4,-4), (5,-5)]
      * Only produces straight lines for vertical, horizontal, and 45deg lines
+     * ex (0,0) to (5,2) produces: [(0,0), (1,1), (2,2), (3,2), (4,2), (5,2)]
      */
     fun enumerateLine(toCoord: Coord): List<Coord> =
         (abs(x - toCoord.x) + 1 to abs(y - toCoord.y) + 1).let { (dx, dy) ->
@@ -170,10 +179,26 @@ data class Coord(val x: Int = 0, val y: Int = 0, val d: Char? = null) {
     fun distance(to: Coord): Double = sqrt((to.x - x).toDouble().pow(2) + (to.y - y).toDouble().pow(2))
 
     /**
+     * Manhattan distance / taxicab distance
      * https://en.wikipedia.org/wiki/Taxicab_geometry
      */
     fun taxiDistance(to: Coord): Int = abs(to.x - x) + abs(to.y - y)
 }
+
+/**
+ * Creates an in-order list of all coordinates visited by drawing a line from each Coord to the next
+ * ex: [(0,0), (2,0), (5,5)] -> [(0,0), (1,0), (2,0), (3,1), (4,2), (5,3), (5,4), (5,5)]
+ * Note: duplicates ARE maintained! If line segments intersect, all passes through that coordinate are maintained
+ * Can be useful for testing if a path doubles back on itself (and where)
+ */
+fun List<Coord>.enumerateLines(): List<Coord> = zipWithNext { a, b -> a.enumerateLine(b).dropLast(1) }.flatten().plus(last())
+
+/**
+ * Creates a set of every Coord intersected by two List<Coord> (path)
+ * Optionally, provide a set of Coords to ignore (ex: if both paths start at the same point, but you don't want that to count)
+ * Note: no duplicate intersections (set)
+ */
+fun List<Coord>.intersections(that: List<Coord>, filterCoords: Set<Coord> = emptySet()): Set<Coord> = enumerateLines().toSet().intersect(that.enumerateLines().toSet()).minus(filterCoords)
 
 /**
  * Extension of getOrNull that returns the input row and col as a Coord, along with the item if found
@@ -218,6 +243,9 @@ fun Collection<Coord>.bounds(): Pair<Coord, Coord> {
 
 /**
  * Creates a visual representation of collection of Coords, required for some puzzles
+ * If there are duplicates, last in wins
+ * NOTE: default print behavior is "top down" where (0,0) is top left and positive Y values go down the page.
+ * For "bottom up" where (0,0) is bottom left, set invert = true
  * ex:
  * [0,0] to [38,5]
  *    ##  #  #  ##   ##  ###   ##   ##  #  #
