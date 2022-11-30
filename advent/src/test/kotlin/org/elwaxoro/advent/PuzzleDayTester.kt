@@ -33,6 +33,11 @@ abstract class PuzzleDayTester(val day: Int, val year: Int) {
     open fun loadToInt(testNum: Int? = null, delimiter: String = "\n"): List<Int> = load(testNum, delimiter).map { it.toInt() }
 
     /**
+     * Default loader, gets the input file and returns a list of longs
+     */
+    open fun loadToLong(testNum: Int? = null, delimiter: String = "\n"): List<Long> = load(testNum, delimiter).map { it.toLong() }
+
+    /**
      * Default loader: Loads whatever the path points to into a single string
      * Generally just call "load" instead, but this can be useful for loading multi-line JSON or something
      */
