@@ -14,6 +14,11 @@ data class Node(
 
     val edges = mutableMapOf<Node, Int>() // directly connected nodes, along with cost to visit them if applicable
 
+    var parent: Node? = null // omg what am I even doing. should really create a tree structure instead of hacking the node to do this :( this is separate so that edges can be children without circular trees
+
+    // Misc for various puzzles. Put whatever you want here
+    var scratch: Int = 0
+
     // helpers for dijkstra
     var shortestPath = listOf<Node>()
     var shortestDistance: Int = Int.MAX_VALUE
@@ -70,6 +75,27 @@ data class Node(
             shortestPath = other.shortestPath + other
         }
     }
+
+    fun printify(): String = "$name: $scratch: $edges"
+
+    /**
+     * Starting with this node as depth 0, recursively calculate the depth of all connected nodes
+     */
+    fun calculateAllDepths(depth: Int = 0) {
+        this.scratch = depth
+        edges.keys.forEach { it.calculateAllDepths(depth + 1) }
+    }
+
+    /**
+     * Starting with this Node, follow the parent links until one is null
+     * Returns a list of Nodes from this one to the root of the tree / graph
+     */
+    fun traceRoot(path: List<Node> = listOf()): List<Node> =
+        if (parent == null) {
+            path.plus(this)
+        } else {
+            parent!!.traceRoot(path.plus(this))
+        }
 }
 
 /**
