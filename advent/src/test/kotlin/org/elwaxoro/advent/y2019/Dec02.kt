@@ -8,7 +8,7 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec02 : PuzzleDayTester(2, 2019) {
 
-    override fun part1(): Any = Intercode(loadToInt(delimiter = ",")).run(12, 2)// == 2782414
+    override fun part1(): Any = Intercode(loadToInt(delimiter = ",")).run(12, 2) == 2782414
 
     /**
      * Inspection of a few manual runs shows:
@@ -26,6 +26,6 @@ class Dec02 : PuzzleDayTester(2, 2019) {
         }
         noun--
         verb = 1 + target - computer.run(noun, verb)
-        return 100 * noun + verb // == 9820
+        return 100 * noun + verb == 9820
     }
 }

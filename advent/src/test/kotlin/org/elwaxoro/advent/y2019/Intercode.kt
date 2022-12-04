@@ -18,7 +18,7 @@ data class Intercode(val program: List<Int>) {
             // setup
             codes[1] = noun
             codes[2] = verb
-            innerRun(-1, codes)
+            innerRun(listOf(), codes)
             return codes[0]
         }
     }
@@ -26,11 +26,17 @@ data class Intercode(val program: List<Int>) {
     /**
      * Dec05 runner
      */
-    fun run(input: Int): Int = innerRun(input, program.toMutableList())
+    fun run(input: Int): Int = innerRun(listOf(input), program.toMutableList())
 
-    private fun innerRun(input: Int, codes: MutableList<Int>): Int {
+    /**
+     * Dec07 runner
+     */
+    fun run(input: List<Int>): Int = innerRun(input, program.toMutableList())
+
+    private fun innerRun(input: List<Int>, codes: MutableList<Int>): Int {
         var output = 0
         var idx = 0
+        var inputIdx = 0
         while (codes[idx] != 99) {
             val codeParts = codes[idx].toString().splitToInt()
 
@@ -44,7 +50,12 @@ data class Intercode(val program: List<Int>) {
                     idx += 4
                 }
                 3 -> { // read input, store in param 1 value's address
-                    codes[codes[idx + 1]] = input
+                    if(inputIdx >= input.size) {
+//                        println("Warn: input read attempted but insufficient inputs provided! $inputIdx")
+                    } else {
+                        codes[codes[idx + 1]] = input[inputIdx]
+                    }
+                    inputIdx++
                     idx += 2
                 }
                 4 -> { // write output to param 1's address or value's address, depending on mode
