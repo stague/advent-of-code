@@ -1,42 +1,35 @@
 package org.elwaxoro.advent.y2019
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.Channel
 import org.elwaxoro.advent.splitToInt
 import java.lang.IllegalStateException
 
 /**
  * Intercode computer!
  * Created Dec02
- * Expanded Dec05
+ * Expanded Dec05 with input / output lists
+ * Expanded Dec07 with coroutines and I/O channels to replace input / output lists
  */
-data class Intercode(val program: List<Int>) {
+@OptIn(ExperimentalCoroutinesApi::class)
+open class Intercode(val program: List<Int>, val name: String = "Compy") {
 
     /**
-     * Dec02 runner
+     * For runs with static input size, convert a list to a channel and close it
      */
-    fun run(noun: Int, verb: Int): Int {
-        program.toMutableList().let { codes ->
-            // setup
-            codes[1] = noun
-            codes[2] = verb
-            innerRun(listOf(), codes)
-            return codes[0]
+    suspend fun List<Int>.toChannel(close: Boolean = true) =
+        Channel<Int>(capacity = Channel.UNLIMITED).also { channel ->
+            forEach {
+                channel.send(it)
+            }
+            if(close) {
+                channel.close()
+            }
         }
-    }
 
-    /**
-     * Dec05 runner
-     */
-    fun run(input: Int): Int = innerRun(listOf(input), program.toMutableList())
-
-    /**
-     * Dec07 runner
-     */
-    fun run(input: List<Int>): Int = innerRun(input, program.toMutableList())
-
-    private fun innerRun(input: List<Int>, codes: MutableList<Int>): Int {
-        var output = 0
+    suspend fun run(input: Channel<Int>, output: Channel<Int>, codes: MutableList<Int>) {
+        println("$name: started")
         var idx = 0
-        var inputIdx = 0
         while (codes[idx] != 99) {
             val codeParts = codes[idx].toString().splitToInt()
 
@@ -50,17 +43,19 @@ data class Intercode(val program: List<Int>) {
                     idx += 4
                 }
                 3 -> { // read input, store in param 1 value's address
-                    if(inputIdx >= input.size) {
-//                        println("Warn: input read attempted but insufficient inputs provided! $inputIdx")
+                    if(input.isClosedForReceive) {
+                        println("$name: Error! can't read input from closed channel (no data remains)")
                     } else {
-                        codes[codes[idx + 1]] = input[inputIdx]
+                        val read = input.receive()
+                        codes[codes[idx + 1]] = read
+                        println("$name: read $read")
                     }
-                    inputIdx++
                     idx += 2
                 }
                 4 -> { // write output to param 1's address or value's address, depending on mode
-                    output = codes.mg(codeParts.mode(1), idx + 1)
-                    // println("output: $output at idx $idx full code $codes")
+                    val write = codes.mg(codeParts.mode(1), idx + 1)
+                    output.send(write)
+                    println("$name: write $write")
                     idx += 2
                 }
                 5 -> { // jump if true: param 1 nonzero, set idx to value of param 2 (no auto advance idx)
@@ -96,7 +91,8 @@ data class Intercode(val program: List<Int>) {
                 else -> throw IllegalStateException("Unknown opcode ${codes[idx]} at idx $idx! Full codes: $codes")
             }
         }
-        return output
+        output.close()
+        println("$name: completed")
     }
 
     /**
