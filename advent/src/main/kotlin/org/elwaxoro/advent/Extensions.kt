@@ -37,6 +37,12 @@ fun IntProgression.padTo(newSize: Int): List<Int> = toList().padTo(newSize)
 fun <T> List<T>.padTo(newSize: Int): List<T> = takeIf { size >= newSize } ?: plus(List(newSize - size) { last() })
 
 /**
+ * Splits a list into two, one with the first N elements the other with the remainder of the original list
+ * I wanted something like partition or windowed, except with the first part having a fixed size and the second part being the entire remainder
+ */
+fun <T> List<T>.takeSplit(n: Int): Pair<List<T>, List<T>> = take(n) to drop(n)
+
+/**
  * Get the median from a list of Int
  */
 fun List<Int>.median(): Double = sorted().let {
