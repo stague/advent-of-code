@@ -64,3 +64,17 @@ fun <T, U> List<Map<T, U>>.merge(merger: (value: U, existing: U?) -> U): Map<T, 
         }
     }
 }
+
+/**
+ * Generates all possible permutations of the provided list
+ * Should be "in-order" depending on your definition of "in-order" when it comes to permutations
+ * It's in some sort of order, anyway
+ */
+fun <T> List<T>.permutations(): List<List<T>> =
+    (0..lastIndex).fold(listOf(Pair(listOf<T>(), this))) { acc, _ ->
+        acc.flatMap { (perm, candidates) ->
+            candidates.map {
+                Pair(perm.plus(it), candidates.minus(it))
+            }
+        }
+    }.map { it.first }
