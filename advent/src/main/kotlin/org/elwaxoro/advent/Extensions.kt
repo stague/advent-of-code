@@ -69,6 +69,7 @@ fun <T, U> List<Map<T, U>>.merge(merger: (value: U, existing: U?) -> U): Map<T, 
  * Generates all possible permutations of the provided list
  * Should be "in-order" depending on your definition of "in-order" when it comes to permutations
  * It's in some sort of order, anyway
+ * Ex: [A, B, C] becomes [[A, B, C], [A, C, B], [B, A, C], [B, C, A], [C, A, B], [C, B, A]]
  *
  * NOTE: this will only work on lists up to size 8 or so without running the jvm out of memory, so I guess if you really need to go that hard, give it more RAMs
  * 8: 40,320 combos
