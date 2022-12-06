@@ -71,10 +71,8 @@ fun <T, U> List<Map<T, U>>.merge(merger: (value: U, existing: U?) -> U): Map<T, 
  * It's in some sort of order, anyway
  */
 fun <T> List<T>.permutations(): List<List<T>> =
-    (0..lastIndex).fold(listOf(Pair(listOf<T>(), this))) { acc, _ ->
-        acc.flatMap { (perm, candidates) ->
-            candidates.map {
-                Pair(perm.plus(it), candidates.minus(it))
-            }
+    (0..lastIndex).fold(listOf(listOf<T>() to this)) { acc, _ ->
+        acc.flatMap { (permutation, candidates) ->
+            candidates.map { permutation.plus(it) to candidates.minus(it) }
         }
     }.map { it.first }
