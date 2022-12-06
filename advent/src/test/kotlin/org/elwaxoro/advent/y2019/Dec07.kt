@@ -1,19 +1,29 @@
 package org.elwaxoro.advent.y2019
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
 import org.elwaxoro.advent.PuzzleDayTester
+import org.elwaxoro.advent.permutations
 
+/**
+ * Day 7: Amplification Circuit
+ */
 class Dec07: PuzzleDayTester(7, 2019) {
 
+    /**
+     * Create all permutations of the list [0,1,2,3,4], then find the max of running each list
+     * Running a list by looping each item, feeding output of the previous into the next
+     */
     override fun part1(): Any = Dec7Compy(loadToInt(delimiter = ",")).let { compy ->
         (0..4).toList().permutations().maxOf { phaseSettings->
             phaseSettings.fold(0) { acc, setting ->
                 compy.run(listOf(setting, acc))
             }
         }
-    } == 79723
+    }// == 79723
 
     class Dec7Compy(program: List<Int>) : Intercode(program) {
         @OptIn(ExperimentalCoroutinesApi::class)
@@ -29,36 +39,35 @@ class Dec07: PuzzleDayTester(7, 2019) {
         }
     }
 
-//    override fun part2(): Any = Intercode(loadToInt(delimiter = ",")).let { compy ->
-//        // TODO compy instances need to have a blocking input queue instead of a list of inputs
-////        (5..9).toList().permutations().maxOf { phaseSettings->
-//        var counter = 1
-//        val phaseSettings = listOf(9,8,7,6,5)
-//            var output = 0
-//            while(true) {
-//                val newOutput = phaseSettings.fold(output) { acc, setting ->
-//                    compy.run(listOf(setting, acc))
-//                }
-//                println("Run $counter = $output")
-//                if(newOutput == output) {
-//                    output = newOutput
-//                    break
-//                } else {
-//                    output = newOutput
-//                }
-//                counter++
-//            }
-//            output
-//        }
-////    }
+    override fun part2(): Any {
+        return "WIP"
+    }
 
-    fun <T> List<T>.permutations(): List<List<T>> =
-        (0..lastIndex).fold(listOf(Pair(listOf<T>(), this))) { acc, _ ->
-            acc.flatMap { (perm, candidates) ->
-                candidates.map {
-                    val newCans = candidates.minus(it)
-                    Pair(perm.plus(it), newCans)
-                }
-            }
-        }.map { it.first }
+//    override fun part2(): Any = runBlocking {
+//        val input = listOf(9,8,7,6,5)
+//        val code = loadToInt(delimiter = ",")
+//
+//        var ampInput = listOf(input[0], 0).toChannel(close = false)
+//        val firstInput = ampInput
+//        listOf("A","B","C","D","E").mapIndexed { idx, name ->
+//            val localInput = ampInput
+//            ampInput = Channel(capacity = Channel.UNLIMITED)
+//            if(idx+1 < input.size) {
+//                localInput.send(input[idx+1])
+//            } else {
+//                ampInput = firstInput
+//            }
+//
+//            async {
+//                Intercode(code, name = name).run(localInput, ampInput)
+//            }
+//        }.map { it.join() }
+//        println("everone stopped???")
+//        var output = firstInput.receive()
+//        while(!firstInput.isClosedForReceive) {
+//            output = firstInput.receive()
+//        }
+//
+//        println("Last amp should have a final output? $output")
+//    }
 }

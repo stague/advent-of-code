@@ -14,20 +14,7 @@ import java.lang.IllegalStateException
 @OptIn(ExperimentalCoroutinesApi::class)
 open class Intercode(val program: List<Int>, val name: String = "Compy") {
 
-    /**
-     * For runs with static input size, convert a list to a channel and close it
-     */
-    suspend fun List<Int>.toChannel(close: Boolean = true) =
-        Channel<Int>(capacity = Channel.UNLIMITED).also { channel ->
-            forEach {
-                channel.send(it)
-            }
-            if(close) {
-                channel.close()
-            }
-        }
-
-    suspend fun run(input: Channel<Int>, output: Channel<Int>, codes: MutableList<Int>) {
+    suspend fun run(input: Channel<Int>, output: Channel<Int>, codes: MutableList<Int> = program.toMutableList()) {
         println("$name: started")
         var idx = 0
         while (codes[idx] != 99) {
@@ -122,3 +109,17 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
             else -> throw IllegalStateException("Unknown mode $mode for idx $idx")
         }
 }
+
+
+/**
+ * For runs with static input size, convert a list to a channel and close it
+ */
+suspend fun List<Int>.toChannel(close: Boolean = true) =
+    Channel<Int>(capacity = Channel.UNLIMITED).also { channel ->
+        forEach {
+            channel.send(it)
+        }
+        if(close) {
+            channel.close()
+        }
+    }
