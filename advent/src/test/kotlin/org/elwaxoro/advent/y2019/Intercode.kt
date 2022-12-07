@@ -15,7 +15,7 @@ import java.lang.IllegalStateException
 open class Intercode(val program: List<Int>, val name: String = "Compy") {
 
     suspend fun run(input: Channel<Int>, output: Channel<Int>, codes: MutableList<Int> = program.toMutableList()) {
-        println("$name: started")
+        // println("$name: started")
         var idx = 0
         while (codes[idx] != 99) {
             val codeParts = codes[idx].toString().splitToInt()
@@ -35,14 +35,14 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
                     } else {
                         val read = input.receive()
                         codes[codes[idx + 1]] = read
-                        println("$name: read $read")
+                        // println("$name: read $read")
                     }
                     idx += 2
                 }
                 4 -> { // write output to param 1's address or value's address, depending on mode
                     val write = codes.mg(codeParts.mode(1), idx + 1)
                     output.send(write)
-                    println("$name: write $write")
+                    // println("$name: write $write")
                     idx += 2
                 }
                 5 -> { // jump if true: param 1 nonzero, set idx to value of param 2 (no auto advance idx)
@@ -79,7 +79,7 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
             }
         }
         output.close()
-        println("$name: completed")
+        // println("$name: completed")
     }
 
     /**
