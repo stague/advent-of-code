@@ -11,10 +11,10 @@ import org.elwaxoro.advent.splitToInt
  */
 class Dec15 : PuzzleDayTester(15, 2021) {
 
-    override fun part1(): Any = parse().cornerToCornerCost()
+    override fun part1(testFileSuffix: Int?): Any = parse().cornerToCornerCost()
 
     // victim of incomplete refactors to optimize and clean up code, now goes OOM but it's a year later so :shrug:
-    override fun part2(): Any = "OOM"//parse(reps = 5).cornerToCornerCost()
+    override fun part2(testFileSuffix: Int?): Any = "OOM"//parse(reps = 5).cornerToCornerCost()
 
     private fun List<List<Node>>.cornerToCornerCost(): Int {
         this[0][0].dijkstra()

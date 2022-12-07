@@ -4,7 +4,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec21 : PuzzleDayTester(21, 2020) {
 
-    override fun part1(): Any = parse().let { inputLines ->
+    override fun part1(testFileSuffix: Int?): Any = parse().let { inputLines ->
         foodPoisioningMap(inputLines).let { poisoning ->
             val badIngredients = poisoning.values
             // remove all the bad ingredients, count up what's left (leave in dupes)
@@ -13,7 +13,7 @@ class Dec21 : PuzzleDayTester(21, 2020) {
     }
 
     // sort by allergen, then print list of ingredients
-    override fun part2(): Any =
+    override fun part2(testFileSuffix: Int?): Any =
         foodPoisioningMap(parse()).toList().sortedBy { it.first }.joinToString(",") { it.second }
 
     // parse input into a list of pairs: first is the set of allergens, second is the set of ingredients

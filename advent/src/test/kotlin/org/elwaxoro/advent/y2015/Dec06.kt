@@ -11,8 +11,8 @@ import kotlin.math.max
  */
 class Dec06 : PuzzleDayTester(6, 2015) {
 
-    override fun part1(): Any = doTheThing(::cmdPuzzle1)
-    override fun part2(): Any = doTheThing(::cmdPuzzle2)
+    override fun part1(testFileSuffix: Int?): Any = doTheThing(::cmdPuzzle1)
+    override fun part2(testFileSuffix: Int?): Any = doTheThing(::cmdPuzzle2)
 
     private enum class CMD(val parse: String) {
         ON("turn on "),

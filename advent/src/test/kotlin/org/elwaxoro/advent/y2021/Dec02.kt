@@ -8,8 +8,8 @@ import org.elwaxoro.advent.PuzzleDayTester
 class Dec02 : PuzzleDayTester(2, 2021) {
 
 
-    override fun part1(): Any = loadMaster().fold(SubCoord(), Instruction::diveDiveDive).whereAmI()
-    override fun part2(): Any = loadMaster().fold(SubCoord(), Instruction::diveButAimThisTime).whereAmI()
+    override fun part1(testFileSuffix: Int?): Any = loadMaster().fold(SubCoord(), Instruction::diveDiveDive).whereAmI()
+    override fun part2(testFileSuffix: Int?): Any = loadMaster().fold(SubCoord(), Instruction::diveButAimThisTime).whereAmI()
 
     private fun loadMaster() = load().map(Instruction::fromString)
 

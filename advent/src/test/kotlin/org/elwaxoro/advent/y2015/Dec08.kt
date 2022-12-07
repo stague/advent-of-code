@@ -6,7 +6,7 @@ import org.elwaxoro.advent.PuzzleDayTester
  * Matchsticks
  */
 class Dec08 : PuzzleDayTester(8, 2015) {
-    override fun part1(): Any = load().let { rawLines ->
+    override fun part1(testFileSuffix: Int?): Any = load().let { rawLines ->
         rawLines.sumOf { it.length } -
             rawLines.map {
                 it.drop(1).dropLast(1)
@@ -18,7 +18,7 @@ class Dec08 : PuzzleDayTester(8, 2015) {
             }.sumOf { it.length }
     }
 
-    override fun part2(): Any = load().let { rawLines ->
+    override fun part2(testFileSuffix: Int?): Any = load().let { rawLines ->
         rawLines.map {
             it.replace(slash, slash + slash)
                 .replace(quote, slash + quote)

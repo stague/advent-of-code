@@ -3,7 +3,7 @@ package org.elwaxoro.advent.y2020
 import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec16 : PuzzleDayTester(16, 2020) {
-    override fun part1(): Any = parse().let { shebang ->
+    override fun part1(testFileSuffix: Int?): Any = parse().let { shebang ->
         shebang.rules.map { it.range }.flatten().toSet().let { validNums ->
             shebang.otherTickets.map { it.numbers.filterNot { validNums.contains(it) } }.flatten().sum()
         }
@@ -52,7 +52,7 @@ class Dec16 : PuzzleDayTester(16, 2020) {
      * STOP READING HERE NO SERIOUSLY JUST TURN BACK NOWWWWWW
      */
 
-    override fun part2(): Any {
+    override fun part2(testFileSuffix: Int?): Any {
         val shebang = parse()
         val masterValidSet: Set<Long> = shebang.rules.map { it.range }.flatten().toSet()
         // get rid of all the crap tickets from puzzle 1

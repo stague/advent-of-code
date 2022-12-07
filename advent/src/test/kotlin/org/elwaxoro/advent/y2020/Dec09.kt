@@ -4,9 +4,9 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec09 : PuzzleDayTester(9, 2020) {
 
-    override fun part1(): Long = parse().findInvalid()
+    override fun part1(testFileSuffix: Int?): Long = parse().findInvalid()
 
-    override fun part2(): Long = parse().let { input ->
+    override fun part2(testFileSuffix: Int?): Long = parse().let { input ->
         input.findInvalid().let { target ->
             // cheating here, based on puzzle 1 output I knew there were zero numbers less than target after it in the input
             (input.indexOf(target) downTo 1).mapNotNull {

@@ -6,7 +6,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec14 : PuzzleDayTester(14, 2020) {
 
-    override fun part1(): Any {
+    override fun part1(testFileSuffix: Int?): Any {
         val map: MutableMap<Long, Long> = mutableMapOf()
         var mask = ""
         parse().forEach { cmd ->
@@ -28,7 +28,7 @@ class Dec14 : PuzzleDayTester(14, 2020) {
         return map.values.sum()
     }
 
-    override fun part2(): Any {
+    override fun part2(testFileSuffix: Int?): Any {
         val map: MutableMap<Long, Long> = mutableMapOf()
         var mask = ""
         parse().forEach { cmd ->

@@ -4,11 +4,11 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec23 : PuzzleDayTester(23, 2020) {
 
-    override fun part1(): Any = playCupGameWithCrabbo(parse(), 100).let { cups ->
+    override fun part1(testFileSuffix: Int?): Any = playCupGameWithCrabbo(parse(), 100).let { cups ->
         cups.listify(1, cups[1]!!, listOf()).joinToString("")
     }
 
-    override fun part2(): Any = playCupGameWithCrabbo(parse().plus((10..1000000)), 10000000).let { cups ->
+    override fun part2(testFileSuffix: Int?): Any = playCupGameWithCrabbo(parse().plus((10..1000000)), 10000000).let { cups ->
         cups[1]!! * cups[cups[1]]!!.toLong()
     }
 

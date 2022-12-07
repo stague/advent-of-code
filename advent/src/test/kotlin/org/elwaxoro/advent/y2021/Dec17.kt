@@ -9,8 +9,8 @@ import org.elwaxoro.advent.contains
  */
 class Dec17 : PuzzleDayTester(17, 2021) {
 
-    override fun part1(): Any = parse().sprayAndPray().flatten().maxOf { it.pos.y }
-    override fun part2(): Any = parse().sprayAndPray().size
+    override fun part1(testFileSuffix: Int?): Any = parse().sprayAndPray().flatten().maxOf { it.pos.y }
+    override fun part2(testFileSuffix: Int?): Any = parse().sprayAndPray().size
 
     /**
      * Shoot a shit ton of probes out there and see what hits the target

@@ -5,9 +5,9 @@ import kotlin.math.abs
 
 class Dec12 : PuzzleDayTester(12, 2020) {
 
-    override fun part1(): Int = parse().sail(1 to 0, true)
+    override fun part1(testFileSuffix: Int?): Int = parse().sail(1 to 0, true)
 
-    override fun part2(): Int = parse().sail(10 to 1, false)
+    override fun part2(testFileSuffix: Int?): Int = parse().sail(10 to 1, false)
 
     private fun List<Pair<Char, Int>>.sail(initialVector: Pair<Int, Int>, compassModsPosition: Boolean): Int {
         var vector = initialVector

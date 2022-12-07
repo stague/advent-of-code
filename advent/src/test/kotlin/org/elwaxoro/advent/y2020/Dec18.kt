@@ -7,7 +7,7 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec18 : PuzzleDayTester(18, 2020) {
 
-    override fun part1(): Any = reverseElfNotationEvaluationMachination {
+    override fun part1(testFileSuffix: Int?): Any = reverseElfNotationEvaluationMachination {
         when (it) {
             "+" -> 2
             "*" -> 2
@@ -15,7 +15,7 @@ class Dec18 : PuzzleDayTester(18, 2020) {
         }
     }
 
-    override fun part2(): Any = reverseElfNotationEvaluationMachination {
+    override fun part2(testFileSuffix: Int?): Any = reverseElfNotationEvaluationMachination {
         when (it) {
             "+" -> 2
             "*" -> 1

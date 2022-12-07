@@ -10,7 +10,7 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec02 : PuzzleDayTester(2, 2019) {
 
-    override fun part1(): Any = Dec2Compy(loadToInt(delimiter = ",")).run(12, 2) == 2782414
+    override fun part1(testFileSuffix: Int?): Any = Dec2Compy(loadToInt(delimiter = ",")).run(12, 2) == 2782414
 
     /**
      * Inspection of a few manual runs shows:
@@ -18,7 +18,7 @@ class Dec02 : PuzzleDayTester(2, 2019) {
      * increasing the verb by one increases the output by 1
      * So keep cranking up the noun till it goes over, subtract one and switch to verb for the difference
      */
-    override fun part2(): Any {
+    override fun part2(testFileSuffix: Int?): Any {
         val target = 19690720
         val computer = Dec2Compy(loadToInt(delimiter = ","))
         var noun = 1

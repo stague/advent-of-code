@@ -9,13 +9,13 @@ import org.elwaxoro.advent.splitToInt
  */
 class Dec11 : PuzzleDayTester(11, 2021) {
 
-    override fun part1(): Any = load().map { it.splitToInt().toMutableList() }.let { grid ->
+    override fun part1(testFileSuffix: Int?): Any = load().map { it.splitToInt().toMutableList() }.let { grid ->
         (1..100).sumOf {
             grid.incAndFlash().countAndReset()
         }
     }
 
-    override fun part2(): Any = load().map { it.splitToInt().toMutableList() }.let { grid ->
+    override fun part2(testFileSuffix: Int?): Any = load().map { it.splitToInt().toMutableList() }.let { grid ->
         seekScore(grid, grid.size * grid[0].size, 1)
     }
 

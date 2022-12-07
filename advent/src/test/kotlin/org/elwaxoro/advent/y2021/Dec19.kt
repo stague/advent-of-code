@@ -9,9 +9,9 @@ import org.elwaxoro.advent.Rotation4
  */
 class Dec19 : PuzzleDayTester(19, 2021) {
 
-    override fun part1(): Any = parse().alignTheScanners().map { it.beacons }.flatten().toSet().size
+    override fun part1(testFileSuffix: Int?): Any = parse().alignTheScanners().map { it.beacons }.flatten().toSet().size
 
-    override fun part2(): Any = parse().alignTheScanners().map { it.translation }.let { translations ->
+    override fun part2(testFileSuffix: Int?): Any = parse().alignTheScanners().map { it.translation }.let { translations ->
         translations.maxOf { a ->
             translations.minus(a).maxOf { b ->
                 a.manhattan(b)

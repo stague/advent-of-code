@@ -14,7 +14,7 @@ class Dec08 : PuzzleDayTester(8, 2019) {
      * so this check is dumber than it has to be, would be easier
      * to just load the layer as a single list
      */
-    override fun part1(): Any = loader(25, 6).minBy { layer ->
+    override fun part1(testFileSuffix: Int?): Any = loader(25, 6).minBy { layer ->
         layer.sumOf { it.count { it == 0 } }
     }.let { layerWithAllTheZeroes ->
         val ones = layerWithAllTheZeroes.sumOf { it.count { it == 1 } }
@@ -26,7 +26,7 @@ class Dec08 : PuzzleDayTester(8, 2019) {
      * Create a destination image, then replace transparent pixels with
      * the first valid color encountered
      */
-    override fun part2(): Any = loader(25, 6).let { layers ->
+    override fun part2(testFileSuffix: Int?): Any = loader(25, 6).let { layers ->
         val image = (0..5).map {
             listOf(2).padTo(25).toMutableList()
         }

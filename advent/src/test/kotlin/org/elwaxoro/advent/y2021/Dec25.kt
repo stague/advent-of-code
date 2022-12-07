@@ -7,7 +7,7 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec25 : PuzzleDayTester(25, 2021) {
 
-    override fun part1(): Any = load().map { it.toList() }.let {
+    override fun part1(testFileSuffix: Int?): Any = load().map { it.toList() }.let {
         var grid = it
         var rep = 0
         do {
@@ -52,5 +52,5 @@ class Dec25 : PuzzleDayTester(25, 2021) {
         rep
     }
 
-    override fun part2(): Any = "There is no part 2! Merry Christmas!"
+    override fun part2(testFileSuffix: Int?): Any = "There is no part 2! Merry Christmas!"
 }

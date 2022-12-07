@@ -9,8 +9,8 @@ import org.elwaxoro.advent.bounds
  */
 class Dec20 : PuzzleDayTester(20, 2021) {
 
-    override fun part1(): Any = glowUpLikeALot(2).size
-    override fun part2(): Any = glowUpLikeALot(50).size
+    override fun part1(testFileSuffix: Int?): Any = glowUpLikeALot(2).size
+    override fun part2(testFileSuffix: Int?): Any = glowUpLikeALot(50).size
 
     /**
      * OOB coords swap from all '.' to all '#' every other iteration

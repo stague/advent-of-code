@@ -11,12 +11,12 @@ class Dec06: PuzzleDayTester(6, 2019) {
     /**
      * the depth of a node is the sum of its direct and indirect orbits, so lets traverse and add up the depths!
      */
-    override fun part1(): Any = loader().let { tree ->
+    override fun part1(testFileSuffix: Int?): Any = loader().let { tree ->
         tree["COM"]!!.calculateAllDepths()
         tree.values.sumOf { it.scratch }
     }// == 295936
 
-    override fun part2(): Any = loader().let { tree ->
+    override fun part2(testFileSuffix: Int?): Any = loader().let { tree ->
         // build path from YOU->COM, remove YOU
         // build path from SAN->COM, remove SAN
         // remove all dupes in the paths, count the size!

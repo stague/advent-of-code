@@ -6,8 +6,8 @@ import org.elwaxoro.advent.PuzzleDayTester
  * Reactor Reboot
  */
 class Dec22: PuzzleDayTester(22, 2021) {
-    override fun part1() = "skip"
-    override fun part2() = "skip"
+    override fun part1(testFileSuffix: Int?) = "skip"
+    override fun part2(testFileSuffix: Int?) = "skip"
 
 // TODO lost the plot here, working solve turned into refactor that doesn't work
 // Now it's 2022 so I guess lets call it a day :(

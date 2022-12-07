@@ -9,8 +9,8 @@ import org.elwaxoro.advent.splitToInt
  */
 class Dec04 : PuzzleDayTester(4, 2019) {
 
-    override fun part1(): Any = (109165..576723).map { it.toString().splitToInt() }.filter { it.isAscending() }.count { it.hasRepeats() }// == 2814
-    override fun part2(): Any = (109165..576723).map { it.toString().splitToInt() }.filter { it.isAscending() }.count { it.hasRepeats(2) }// == 1991
+    override fun part1(testFileSuffix: Int?): Any = (109165..576723).map { it.toString().splitToInt() }.filter { it.isAscending() }.count { it.hasRepeats() }// == 2814
+    override fun part2(testFileSuffix: Int?): Any = (109165..576723).map { it.toString().splitToInt() }.filter { it.isAscending() }.count { it.hasRepeats(2) }// == 1991
 
     private fun List<Int>.isAscending(): Boolean = zipWithNext { a, b -> a <= b }.all { it }
 

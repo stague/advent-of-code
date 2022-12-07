@@ -4,9 +4,9 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec06 : PuzzleDayTester(6, 2020) {
 
-    override fun part1() = boop().map { beep(it).toSet() }.sumOf{ it.size }
+    override fun part1(testFileSuffix: Int?) = boop().map { beep(it).toSet() }.sumOf{ it.size }
 
-    override fun part2() = boop().map { group ->
+    override fun part2(testFileSuffix: Int?) = boop().map { group ->
         group.split("\n").size.let { groupSize ->
             beep(group).groupBy { it }.filter { it.value.size == groupSize }.size
         }

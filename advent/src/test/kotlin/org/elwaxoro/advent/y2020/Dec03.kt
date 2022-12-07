@@ -4,9 +4,9 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec03 : PuzzleDayTester(3, 2020) {
 
-    override fun part1(): Any = countTrees(parseInput(), 3, 1)
+    override fun part1(testFileSuffix: Int?): Any = countTrees(parseInput(), 3, 1)
 
-    override fun part2(): Any = DOTHEDEW(parseInput())
+    override fun part2(testFileSuffix: Int?): Any = DOTHEDEW(parseInput())
 
     private fun DOTHEDEW(rows: List<List<Int>>) =
         listOf(

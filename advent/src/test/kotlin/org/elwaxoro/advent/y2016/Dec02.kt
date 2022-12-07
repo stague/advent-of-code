@@ -6,7 +6,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec02: PuzzleDayTester(2, 2016) {
 
-    override fun part1(): Any = codeSolver(
+    override fun part1(testFileSuffix: Int?): Any = codeSolver(
         """
         789
         456
@@ -15,7 +15,7 @@ class Dec02: PuzzleDayTester(2, 2016) {
         Coord(1,1)
     )
 
-    override fun part2(): Any = codeSolver(
+    override fun part2(testFileSuffix: Int?): Any = codeSolver(
         """
         --D--
         -ABC-

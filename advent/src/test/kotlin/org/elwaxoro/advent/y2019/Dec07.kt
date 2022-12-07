@@ -16,7 +16,7 @@ class Dec07 : PuzzleDayTester(7, 2019) {
      * Create all permutations of the list [0,1,2,3,4], then find the max of running each list
      * Running a list by looping each item, feeding output of the previous into the next
      */
-    override fun part1(): Any = Dec7Part1Compy(loadToInt(delimiter = ",")).let { compy ->
+    override fun part1(testFileSuffix: Int?): Any = Dec7Part1Compy(loadToInt(delimiter = ",")).let { compy ->
         (0..4).toList().permutations().maxOf { phaseSettings ->
             phaseSettings.fold(0) { acc, setting ->
                 compy.run(listOf(setting, acc))
@@ -38,7 +38,7 @@ class Dec07 : PuzzleDayTester(7, 2019) {
         }
     }
 
-    override fun part2(): Any = runBlocking {
+    override fun part2(testFileSuffix: Int?): Any = runBlocking {
         val amps = listOf("A", "B", "C", "D", "E")
         val code = loadToInt(delimiter = ",")
         (5..9).toList().permutations().maxOf { phaseSetting ->

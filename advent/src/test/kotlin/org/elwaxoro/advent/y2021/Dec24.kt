@@ -7,8 +7,8 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec24 : PuzzleDayTester(24, 2021) {
 
-    override fun part1(): Any = monaderator(isMax = true)
-    override fun part2(): Any = monaderator(isMax = false)
+    override fun part1(testFileSuffix: Int?): Any = monaderator(isMax = true)
+    override fun part2(testFileSuffix: Int?): Any = monaderator(isMax = false)
 
     /**
      * Can treat this whole program as a set of smaller sub-programs each marked at the start by "inp w"

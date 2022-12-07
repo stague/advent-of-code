@@ -4,11 +4,11 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec10 : PuzzleDayTester(10, 2020) {
 
-    override fun part1() = parse().fold(AdapterWad(), AdapterWad::addAnyAdapter).let {
+    override fun part1(testFileSuffix: Int?) = parse().fold(AdapterWad(), AdapterWad::addAnyAdapter).let {
         it.threeJolt * it.oneJolt
     }
 
-    override fun part2() = parse().fold(mutableListOf(AdapterWad(oneJolt = 1L))) { wads, adapter ->
+    override fun part2(testFileSuffix: Int?) = parse().fold(mutableListOf(AdapterWad(oneJolt = 1L))) { wads, adapter ->
         wads.also {
             wads.last().addSequentialAdapter(adapter) ?: wads.add(AdapterWad(oneJolt = 1L, lastAdapter = adapter))
         }

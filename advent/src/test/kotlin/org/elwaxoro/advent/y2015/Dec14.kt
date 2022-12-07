@@ -8,7 +8,7 @@ import kotlin.math.min
  */
 class Dec14 : PuzzleDayTester(14, 2015) {
 
-    override fun part1(): Any = parse().let { reindeer ->
+    override fun part1(testFileSuffix: Int?): Any = parse().let { reindeer ->
         reindeer.maxOf {
             it.distanceTraveled(2503)
         }
@@ -17,7 +17,7 @@ class Dec14 : PuzzleDayTester(14, 2015) {
     /**
      * yikes nobody had ever read this wtf were you thinking doing this instead of a fold or something else non-stupid
      */
-    override fun part2(): Any = parse().let { reindeer ->
+    override fun part2(testFileSuffix: Int?): Any = parse().let { reindeer ->
         (1..2503L).map { seconds ->
             reindeer.map { hurr ->
                 hurr to hurr.distanceTraveled(seconds)

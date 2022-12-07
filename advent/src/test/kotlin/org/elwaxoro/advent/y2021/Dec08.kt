@@ -11,7 +11,7 @@ class Dec08 : PuzzleDayTester(8, 2021) {
      * Only care about the right side of the pipe
      * Only care about unique length digits
      */
-    override fun part1(): Any = load().map { it.split(" | ").let { it[0] to it[1] } }
+    override fun part1(testFileSuffix: Int?): Any = load().map { it.split(" | ").let { it[0] to it[1] } }
         .sumOf { it.second.split(" ").filter { it.length in listOf(2, 3, 4, 7) }.size }
 
     /**
@@ -24,7 +24,7 @@ class Dec08 : PuzzleDayTester(8, 2021) {
      * sum of remaining for each mask = 10
      * Each 5 segment digit masks to a different sum, same with 6 segment digits (note 5 and 6 overlap so doing separately)
      */
-    override fun part2(): Any =
+    override fun part2(testFileSuffix: Int?): Any =
         load().map { it.replace(" |", "").split(" ") }.map { it to it.buildMasks() }.map { (digits, masks) ->
             digits.map { digit ->
                 when (digit.length) {

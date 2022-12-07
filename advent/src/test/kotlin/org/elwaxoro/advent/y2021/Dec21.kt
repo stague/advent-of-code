@@ -7,7 +7,7 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec21 : PuzzleDayTester(21, 2021) {
 
-    override fun part1(): Any = GameV1(listOf(Player(1, 6), Player(2, 8))).let { game ->
+    override fun part1(testFileSuffix: Int?): Any = GameV1(listOf(Player(1, 6), Player(2, 8))).let { game ->
         while (!game.hasWinner()) {
             game.players.forEach { player ->
                 if (!game.hasWinner()) {
@@ -19,7 +19,7 @@ class Dec21 : PuzzleDayTester(21, 2021) {
         game.players.minOf { it.score } * game.dice
     }
 
-    override fun part2(): Any = findAllTheGames(mapOf(GameV2(listOf(Player(1, 6), Player(2, 8))) to 1L))
+    override fun part2(testFileSuffix: Int?): Any = findAllTheGames(mapOf(GameV2(listOf(Player(1, 6), Player(2, 8))) to 1L))
             .entries.groupBy { it.key.getWinner() }
             .map { it.value.sumOf { it.value } }.maxOf { it }
 

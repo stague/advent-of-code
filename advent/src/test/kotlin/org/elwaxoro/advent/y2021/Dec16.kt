@@ -7,8 +7,8 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec16 : PuzzleDayTester(16, 2021) {
 
-    override fun part1(): Any = parse().parsePacket().first!!.calcVersion()
-    override fun part2(): Any = parse().parsePacket().first!!.calcValue()
+    override fun part1(testFileSuffix: Int?): Any = parse().parsePacket().first!!.calcVersion()
+    override fun part2(testFileSuffix: Int?): Any = parse().parsePacket().first!!.calcValue()
 
     /**
      * Reads the first entire packet off a string

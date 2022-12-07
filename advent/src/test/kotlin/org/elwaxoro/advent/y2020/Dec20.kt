@@ -5,12 +5,12 @@ import java.awt.Point
 
 class Dec20 : PuzzleDayTester(20, 2020) {
 
-    override fun part1(): Any = makeAPrettyPicture().let { pp ->
+    override fun part1(testFileSuffix: Int?): Any = makeAPrettyPicture().let { pp ->
         // find the corners of the pp and mult them up
         pp[0][0].id * pp[0][pp.size - 1].id * pp[pp.size - 1][0].id * pp[pp.size - 1][pp.size - 1].id
     }
 
-    override fun part2(): Any {
+    override fun part2(testFileSuffix: Int?): Any {
         // start with the pp, but as a single trimmed Orientation
         val combinedPicture: Orientation = makeAPrettyPicture().trimAndBlobItUp()
         val seaMonster: List<Point> = parseMonster()

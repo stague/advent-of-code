@@ -11,12 +11,12 @@ import kotlin.math.floor
  */
 class Dec07 : PuzzleDayTester(7, 2021) {
 
-    override fun part1(): Any = loadToInt(delimiter = ",").crabboFuelGuesser5000(
+    override fun part1(testFileSuffix: Int?): Any = loadToInt(delimiter = ",").crabboFuelGuesser5000(
         { it.median() },
         { target, crab -> abs(crab - target) }
     )
 
-    override fun part2(): Any = loadToInt(delimiter = ",").crabboFuelGuesser5000(
+    override fun part2(testFileSuffix: Int?): Any = loadToInt(delimiter = ",").crabboFuelGuesser5000(
         { it.average() },
         { target, crab -> (1..abs(crab - target)).sum() }
     )

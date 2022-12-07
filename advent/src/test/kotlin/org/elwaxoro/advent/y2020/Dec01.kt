@@ -4,7 +4,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec01 : PuzzleDayTester(1, 2020) {
 
-    override fun part1(): Any {
+    override fun part1(testFileSuffix: Int?): Any {
         val array = load().map { it.toInt() }.sorted()
         (1..2020).forEach { first ->
             if (array.contains(first)) {
@@ -20,7 +20,7 @@ class Dec01 : PuzzleDayTester(1, 2020) {
         throw IllegalStateException("well that didn't work ya dummy")
     }
 
-    override fun part2(): Any {
+    override fun part2(testFileSuffix: Int?): Any {
         val list = load().map { it.toInt() }.sorted()
         list.forEachIndexed { idx1, first ->
             // if first + second + min already too big even for 2020, just filter

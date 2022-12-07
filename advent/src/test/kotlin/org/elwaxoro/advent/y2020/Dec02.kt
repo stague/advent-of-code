@@ -4,8 +4,8 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec02 : PuzzleDayTester(2, 2020) {
 
-    override fun part1(): Any = parseInput().count { it.isValid() }
-    override fun part2(): Any = parseInput().count { it.isValid2() }
+    override fun part1(testFileSuffix: Int?): Any = parseInput().count { it.isValid() }
+    override fun part2(testFileSuffix: Int?): Any = parseInput().count { it.isValid2() }
 
     private data class Password(
         val min: Int,

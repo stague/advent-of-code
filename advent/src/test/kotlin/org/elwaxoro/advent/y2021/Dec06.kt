@@ -7,8 +7,8 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec06 : PuzzleDayTester(6, 2021) {
 
-    override fun part1(): Any = countTheFishes(80)
-    override fun part2(): Any = countTheFishes(256)
+    override fun part1(testFileSuffix: Int?): Any = countTheFishes(80)
+    override fun part2(testFileSuffix: Int?): Any = countTheFishes(256)
 
     private fun countTheFishes(days: Int) =
         (0 until days).map { it % 8 } // ignore last bucket for iteration, that's the nursery and it never spawns

@@ -13,9 +13,9 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec12 : PuzzleDayTester(12, 2015) {
 
-    override fun part1(): Any = load().sumOf { Regex("(-?\\d+)").find(it)?.value?.toInt() ?: 0 }
+    override fun part1(testFileSuffix: Int?): Any = load().sumOf { Regex("(-?\\d+)").find(it)?.value?.toInt() ?: 0 }
 
-    override fun part2(): Any = Json.parseToJsonElement(loadText(getPath())).score()
+    override fun part2(testFileSuffix: Int?): Any = Json.parseToJsonElement(loadText(getPath())).score()
 
     private fun JsonElement.score(): Int = when (this::class.simpleName) {
         "JsonObject" -> jsonObject.takeIf { it.entries.none { it.value.toString() == "\"red\"" } }?.values?.sumOf { it.score() } ?: 0

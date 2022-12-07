@@ -7,13 +7,13 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec11 : PuzzleDayTester(11, 2015) {
 
-    override fun part1(): Any {
+    override fun part1(testFileSuffix: Int?): Any {
         val password = "hepxcrrq".toMutableList()
         findNextPassword(password)
         return password.joinToString("")
     }
 
-    override fun part2(): Any {
+    override fun part2(testFileSuffix: Int?): Any {
         val password = "hepxcrrq".toMutableList()
         findNextPassword(password)
         findNextPassword(password)

@@ -9,14 +9,14 @@ class Dec03: PuzzleDayTester(3, 2019) {
 
     private val start = Coord(0,0,'o')
 
-    override fun part1(): Any = load().map { it.split(",") }.let { wires ->
+    override fun part1(testFileSuffix: Int?): Any = load().map { it.split(",") }.let { wires ->
         val wire1 = wires.first().toSegments()
         val wire2 = wires.last().toSegments()
         val intersections = wire1.intersections(wire2, setOf(start))
         intersections.minOf { it.taxiDistance(start) }
     }// == 260
 
-    override fun part2(): Any = load().map { it.split(",") }.let { wires ->
+    override fun part2(testFileSuffix: Int?): Any = load().map { it.split(",") }.let { wires ->
         val wire1 = wires.first().toSegments()
         val wire2 = wires.last().toSegments()
         val intersections = wire1.intersections(wire2, setOf(start))

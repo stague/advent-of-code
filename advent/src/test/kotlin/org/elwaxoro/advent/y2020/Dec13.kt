@@ -4,7 +4,7 @@ import org.elwaxoro.advent.PuzzleDayTester
 
 class Dec13 : PuzzleDayTester(13, 2020) {
 
-    override fun part1(): Any {
+    override fun part1(testFileSuffix: Int?): Any {
 
         val input = load()
         val startTime = input[0].toLong()
@@ -21,7 +21,7 @@ class Dec13 : PuzzleDayTester(13, 2020) {
         }
     }
 
-    override fun part2(): Any {
+    override fun part2(testFileSuffix: Int?): Any {
         val input = load()
         val busSchedule = input[1].split(",").map {
             if (it == "x")

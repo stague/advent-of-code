@@ -9,10 +9,10 @@ import org.elwaxoro.advent.PuzzleDayTester
  */
 class Dec01 : PuzzleDayTester(1, 2015) {
 
-    override fun part1(): Any = parseInput().sum()
+    override fun part1(testFileSuffix: Int?): Any = parseInput().sum()
 
     // accumulator is a pair: first is running sum, second is basement idx (-1 until found)
-    override fun part2(): Any = parseInput().foldIndexed(0 to -1) { idx, acc, item ->
+    override fun part2(testFileSuffix: Int?): Any = parseInput().foldIndexed(0 to -1) { idx, acc, item ->
         if (acc.first + item == -1 && acc.second == -1) {
             acc.first + item to idx + 1 // puzzle idx starts at 1 not zero
         } else {

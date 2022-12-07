@@ -15,12 +15,12 @@ class Dec03 : PuzzleDayTester(3, 2015) {
         fun visit(dir: Dir): Santa = Santa(visits + visits.last().move(dir))
     }
 
-    override fun part1(): Any = parse().fold(Santa()) { santa, dir ->
+    override fun part1(testFileSuffix: Int?): Any = parse().fold(Santa()) { santa, dir ->
         santa.visit(dir)
     }.visits.distinct().count()
 
     // TWO SANTAAAAS?
-    override fun part2(): Any = parse().foldIndexed(Pair(Santa(), Santa())) { idx, santas, dir ->
+    override fun part2(testFileSuffix: Int?): Any = parse().foldIndexed(Pair(Santa(), Santa())) { idx, santas, dir ->
         if (idx % 2 == 0) {
             // santa moves
             Pair(santas.first.visit(dir), santas.second)

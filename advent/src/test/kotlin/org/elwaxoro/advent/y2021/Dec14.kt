@@ -12,7 +12,7 @@ class Dec14 : PuzzleDayTester(14, 2021) {
     /**
      * HELL YEA LETS MAKE A GIANT STRING WOO!
      */
-    override fun part1(): Any = parse().let { (template, rules) ->
+    override fun part1(testFileSuffix: Int?): Any = parse().let { (template, rules) ->
         (1..10).fold(template) { acc, _ ->
             acc.zipWithNext { a, b ->
                 a + rules.getOrDefault("$a$b", "")
@@ -30,7 +30,7 @@ class Dec14 : PuzzleDayTester(14, 2021) {
      * C is now included twice, so strip the pairs down at the end to just take the first char from each pair:
      * AC:1,CB:1 -> A:1,C:1 but that leaves out the final original B entirely, so add that in manually at the end (just like part one)
      */
-    override fun part2(): Any = parse().let { (template, rules) ->
+    override fun part2(testFileSuffix: Int?): Any = parse().let { (template, rules) ->
         val initialMap: Map<String, Long> = template.zipWithNext { a, b -> "$a$b" }.associateWith { 1L }
         (1..40).fold(initialMap) { pairAccumulator, _ ->
             pairAccumulator.entries.map { (pair, count) ->
