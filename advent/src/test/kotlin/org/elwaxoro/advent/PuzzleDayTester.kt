@@ -65,11 +65,8 @@ abstract class PuzzleDayTester(val day: Int, val year: Int) {
     open fun testPart2() = testPuzzle("$year-$day Puzzle 2", null, ::part2)
 
     @Test
-    open fun testAll() {
-        if (testRuns.isEmpty()) {
-            testPart1()
-            testPart2()
-        } else {
+    open fun testRunner() {
+        if (testRuns.isNotEmpty()) {
             testRuns.forEach { tr ->
                 val testName = "[${
                     if (tr.testFileSuffix != null) {
@@ -79,6 +76,8 @@ abstract class PuzzleDayTester(val day: Int, val year: Int) {
                 testPuzzle("$year-$day Puzzle 1 $testName", tr.testPart1Answer) { ::part1.invoke(tr.testFileSuffix) }
                 testPuzzle("$year-$day Puzzle 2 $testName", tr.testPart2Answer) { ::part2.invoke(tr.testFileSuffix) }
             }
+        } else {
+            println("No test runs defined. Skipping.")
         }
     }
 
