@@ -25,12 +25,14 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
                     codes[codes[idx + 3]] = codes.mg(codeParts.mode(1), idx + 1) + codes.mg(codeParts.mode(2), idx + 2)
                     idx += 4
                 }
+
                 2 -> { // param 1 * param 2, store in param 3 value's address
                     codes[codes[idx + 3]] = codes.mg(codeParts.mode(1), idx + 1) * codes.mg(codeParts.mode(2), idx + 2)
                     idx += 4
                 }
+
                 3 -> { // read input, store in param 1 value's address
-                    if(input.isClosedForReceive) {
+                    if (input.isClosedForReceive) {
                         println("$name: Error! can't read input from closed channel (no data remains)")
                     } else {
                         val read = input.receive()
@@ -39,12 +41,14 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
                     }
                     idx += 2
                 }
+
                 4 -> { // write output to param 1's address or value's address, depending on mode
                     val write = codes.mg(codeParts.mode(1), idx + 1)
                     output.send(write)
                     // println("$name: write $write")
                     idx += 2
                 }
+
                 5 -> { // jump if true: param 1 nonzero, set idx to value of param 2 (no auto advance idx)
                     if (codes.mg(codeParts.mode(1), idx + 1) != 0) {
                         idx = codes.mg(codeParts.mode(2), idx + 2)
@@ -52,6 +56,7 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
                         idx += 3
                     }
                 }
+
                 6 -> { // jump if false: param 1 zero, set idx to value of param 2 (no auto advance idx)
                     if (codes.mg(codeParts.mode(1), idx + 1) == 0) {
                         idx = codes.mg(codeParts.mode(2), idx + 2)
@@ -59,6 +64,7 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
                         idx += 3
                     }
                 }
+
                 7 -> { // less than: if param 1 < param 2 store 1 in param 3, else store 0
                     if (codes.mg(codeParts.mode(1), idx + 1) < codes.mg(codeParts.mode(2), idx + 2)) {
                         codes[codes[idx + 3]] = 1
@@ -67,6 +73,7 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
                     }
                     idx += 4
                 }
+
                 8 -> { // equals: if param 1 == param 2, store 1 in param 3, else store 0
                     if (codes.mg(codeParts.mode(1), idx + 1) == codes.mg(codeParts.mode(2), idx + 2)) {
                         codes[codes[idx + 3]] = 1
@@ -75,6 +82,7 @@ open class Intercode(val program: List<Int>, val name: String = "Compy") {
                     }
                     idx += 4
                 }
+
                 else -> throw IllegalStateException("Unknown opcode ${codes[idx]} at idx $idx! Full codes: $codes")
             }
         }
@@ -119,7 +127,7 @@ suspend fun List<Int>.toChannel(close: Boolean = true) =
         forEach {
             channel.send(it)
         }
-        if(close) {
+        if (close) {
             channel.close()
         }
     }
